@@ -1,7 +1,13 @@
 {
-  "title": "Krea 14B 六路对照",
+  "title": "Krea 14B 八路对照",
   "seed": 12,
   "prompt": "A cheerful and playful Corgi running and frolicking in a sunlit park during the golden hour of sunset. The Corgi has a fluffy tail and perky ears, wagging happily as it runs through the grassy field. The sky is painted with warm hues of orange and pink, casting a soft glow over the greenery. In the background, there are families enjoying their leisure time, children playing, and couples walking hand in hand. Medium shot capturing the joyful energy of the Corgi amidst the serene park atmosphere.",
+  "prompt30s": "A 30-second video of a cheerful and playful Corgi running and frolicking in a sunlit park during the golden hour of sunset. The Corgi has a fluffy tail and perky ears, wagging happily as it runs through the grassy field. The sky is painted with warm hues of orange and pink, casting a soft glow over the greenery. In the background, there are families enjoying their leisure time, children playing, and couples walking hand in hand. Medium shot capturing the joyful energy of the Corgi amidst the serene park atmosphere.",
+  "prompt_hash_encoding": "UTF-8 prompt text followed by one LF, matching the original prompt files",
+  "comparison_groups": {
+    "original": {"video_numbers": [1, 2, 3, 4, 5, 6], "prompt_sha256": "ac15935323a5f1d16a4d7eb4dcee031f9e038f13c6c958229eea99a089f58d4e", "note": "01–03 share the original fixed Base; 04 uses HR feedback; 05–06 start from shared HR noise without a Base."},
+    "prompt30s": {"video_numbers": [7, 8], "prompt_sha256": "fb48c0cbd6f6db670cda92e66bac56fe1991e2486fc3c53e63cce66fca9621f7", "base_manifest_semantic_sha256": "373a11927b126b53f5e5352eb9ae1a3c17fb4bfa860ef15eb2f2bd9a2708bcf4", "note": "07–08 share a newly generated fixed Base. Only the first prompt sentence changes; the original six videos are preserved."}
+  },
   "videos": [
     {
       "id": "bilinear",
@@ -110,6 +116,44 @@
       "full_decode_passed": true,
       "url": "./media/freeswim_ar_direct_30s.mp4",
       "poster": "./posters/freeswim_ar_direct.jpg"
+    },
+    {
+      "id": "bilinear_prompt30s",
+      "title": "Bilinear",
+      "subtitle": "同新 Base · 双线性插值",
+      "category": "prompt30s",
+      "categoryLabel": "新 30 秒提示词",
+      "prompt_group": "prompt30s",
+      "bytes": 34905456,
+      "sha256": "c7849a95b9584dcda8cb3ecc3dba83964bfb9d12a06a1f1c141889a5e355175b",
+      "width": 1664,
+      "height": 960,
+      "frames": 480,
+      "fps": 16,
+      "duration": 30,
+      "codec": "h264",
+      "full_decode_passed": true,
+      "url": "./media/bilinear_prompt30s_30s.mp4",
+      "poster": "./posters/bilinear_prompt30s.jpg"
+    },
+    {
+      "id": "freeswim_ar_base_prompt30s",
+      "title": "FreeSwim + AR-RoPE",
+      "subtitle": "新 Base 后加噪 · 全局辅助分支 AR",
+      "category": "prompt30s",
+      "categoryLabel": "新 30 秒提示词",
+      "prompt_group": "prompt30s",
+      "bytes": 40309744,
+      "sha256": "9994ecb45ad23833ff722b60fa8ce1c6dfd0ebed10aa41dbddc1357112140387",
+      "width": 1664,
+      "height": 960,
+      "frames": 480,
+      "fps": 16,
+      "duration": 30,
+      "codec": "h264",
+      "full_decode_passed": true,
+      "url": "./media/freeswim_ar_base_prompt30s_30s.mp4",
+      "poster": "./posters/freeswim_ar_base_prompt30s.jpg"
     }
   ],
   "native_audit": {
@@ -129,6 +173,23 @@
     "full_decode_passed": true,
     "url": "./media/base_30s.mp4",
     "poster": "./posters/base.jpg"
+  },
+  "native_prompt30s_audit": {
+    "id": "base_prompt30s",
+    "title": "Native Base · 新30秒提示词",
+    "category": "audit",
+    "prompt_group": "prompt30s",
+    "bytes": 14745422,
+    "sha256": "a134c918d6304a18c459c276354f8b92eb47860afbabddaddaa782f6920a9b90",
+    "width": 832,
+    "height": 480,
+    "frames": 480,
+    "fps": 16,
+    "duration": 30,
+    "codec": "h264",
+    "full_decode_passed": true,
+    "url": "./media/base_prompt30s_30s.mp4",
+    "poster": "./posters/base_prompt30s.jpg"
   },
   "validation_note": "Full-decode and byte-integrity checks are technical validation, not perceptual quality scores."
 }

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Krea 14B 五场景、三种方法视频对照：同 Base 双线性插值、Base 后加噪、低清到高清 HR 反馈。">
+  <title>Krea 14B · 五场景三方法对照</title>
+  <link rel="stylesheet" href="./viewer.css">
+  <script type="module" src="./viewer.mjs"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">K</span><span>KREA 14B <span class="brand-caption">/ VIDEO STUDY</span></span></div>
+    <span class="status-badge" id="page-status">正在读取实验清单</span>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">五类场景 · 三种方法 · 30 秒连续视频</p><h1 id="page-title">不同场景，同一组对照。</h1><p class="intro-copy">观察新增细节，也观察它们如何随时间变化。</p></div>
+      <div class="specifications" aria-label="实验目标规格"><span>832 × 480 <b>→</b> 1664 × 960</span><span>16 fps <i>·</i> seed 12 <i>·</i> 官方 Krea 14B</span></div>
+    </section>
+    <div id="preparation-notice" class="notice" role="status" hidden></div>
+    <section class="workspace" aria-label="视频对照">
+      <div class="scene-toolbar">
+        <nav id="scene-tabs" aria-label="选择场景"></nav>
+        <label class="all-toggle"><input type="checkbox" id="show-all"> 浏览全部五组</label>
+      </div>
+      <div class="order-help"><span>拖动方法名称，或使用左右箭头调整顺序；各组共用并记住同一列顺序。</span><button type="button" id="reset-order">恢复默认顺序</button></div>
+      <div id="scene-groups"></div>
+    </section>
+    <section class="comparison-note" aria-labelledby="comparison-title">
+      <h2 id="comparison-title">先看清比较边界</h2>
+      <div><p><strong>同一份新 Base</strong><br>Bilinear 与 Base 后加噪的 FreeSwim + AR-RoPE，共享各自场景的新 Native Base。不是复用旧视频。</p><p><strong>另一条自回归路线</strong><br>低清 2 步 → 高清 3 步保留 HR 反馈；提示词和 seed 相同，但它不来自前两路的固定完整 Base。</p><p><strong>原片、逐路独立缓冲</strong><br>提供原始 MP4 渐进播放，不要求整片预下载。一条缓冲不会暂停其他视频；组内进度操作仅在手动调整时执行。</p></div>
+    </section>
+  </main>
+  <footer><span>Krea 14B · Five-scene comparison · <a href="../">返回原八路对照 ↗</a></span><span id="footer-status">正在核对本轮媒体清单</span></footer>
+  <div id="announcement" class="sr-only" aria-live="polite"></div>
+  <noscript><p class="notice">此对照页需要 JavaScript 读取实验清单与播放控件。不会自动显示其他实验视频。</p></noscript>
+</body>
+</html>

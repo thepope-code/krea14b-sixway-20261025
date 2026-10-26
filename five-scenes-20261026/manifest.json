@@ -1,0 +1,758 @@
+{
+  "schema_version": 1,
+  "experiment_id": "nm5_krea_five_scene_triple_20261026",
+  "title": "Krea 14B · 五场景三方法对照",
+  "description": "五种场景，三条高清生成路线。原始 MP4 渐进播放，独立缓冲。",
+  "pipeline": {
+    "experiment_id": "nm5_krea_five_scene_triple_20261026",
+    "status": "completed",
+    "jobs_succeeded": true,
+    "summary_verified": true,
+    "summary_sha256": "3c56dd049354f8313fe7751ea769303d43aef6eec56faf3442c9eef0455f8b16"
+  },
+  "science": {
+    "model": "same pinned official Krea14B checkpoint and successful adapter implementation",
+    "seed": 12,
+    "native_wh": [
+      832,
+      480
+    ],
+    "display_wh": [
+      1664,
+      960
+    ],
+    "frames": 480,
+    "fps": 16,
+    "duration_seconds": 30,
+    "blocks": 41,
+    "block_latents": 3,
+    "history_latents": 3,
+    "full_model_calls": [
+      1000,
+      937.5,
+      833.3333333333,
+      625,
+      0
+    ],
+    "base_renoise_calls": [
+      833.3333333333,
+      625,
+      0
+    ],
+    "progressive_low_calls": [
+      1000,
+      937.5
+    ],
+    "progressive_high_calls": [
+      833.3333333333,
+      625,
+      0
+    ],
+    "clean_history_refresh": "preserve original successful implementation in addition to sampling calls",
+    "freeswim_local_radius": [
+      15,
+      26
+    ],
+    "freeswim_ca_lambda": 1,
+    "cross_step_feature_cache": false,
+    "ar_scope": "high-resolution global auxiliary branch only; native branch retains ordinary RoPE",
+    "ar_reference": [
+      30,
+      52
+    ],
+    "ar_query_tile": [
+      15,
+      26
+    ],
+    "ar_threshold": [
+      6,
+      10
+    ]
+  },
+  "comparison_contract": {
+    "within_each_scene": "Generate a new native Base. Bilinear and freeswim_ar_base consume exactly this same Base and prompt. Progressive uses the same prompt/seed but has HR feedback and is not derived from that fixed Base.",
+    "between_scenes": "Five independent prompts and Base sources; never reuse another scene's Base or an old experiment video.",
+    "base_renoise_order": "Base VAE decode -> RGB bilinear upscale -> VAE encode -> add noise -> high-resolution suffix",
+    "progressive": "Preserve the prior successful two-low-call/three-high-call HR-feedback mechanism, including prior noise and cache handling; do not substitute a clean Base restart.",
+    "prompt_encoding": "Exact UTF-8 prompt text followed by one LF; record its SHA-256 for every method and Base. No additional negative prompt or undisclosed prompt rewriting."
+  },
+  "scenes": [
+    {
+      "id": "pottery",
+      "title": "人物手工 · 陶艺制作",
+      "prompt_sha256_utf8_lf": "6533914c652a92ce219195bae896986c3aa66bec43d14e7771601d0831b753d4",
+      "observation": "手指与碗沿结构、旋转泥土刻痕、湿润反光与真实表面纹理的区分。",
+      "prompt": "A 30-second continuous, uncut video of an adult potter slowly shaping a small clay bowl on a rotating pottery wheel. A fixed medium close-up shows both hands, the bowl, and the wheel. The fingers make gentle adjustments to the same bowl throughout the shot. Soft daylight reveals wet clay, fine concentric grooves, skin texture, and subtle reflections on the moist surface. The plain workshop background remains softly out of focus. Natural, steady motion with no cuts or sudden camera movements.",
+      "prompt_sha256": "6533914c652a92ce219195bae896986c3aa66bec43d14e7771601d0831b753d4",
+      "native_audit": {
+        "status": "ready",
+        "url": "./media/pottery_base_30s.mp4",
+        "sha256": "3e3823d079acc29c43e0ab5c0213c2a9dbc20800b1c77094e0c65debd3b398a0",
+        "bytes": 9170776,
+        "validation": {
+          "experiment_id": "nm5_krea_five_scene_triple_20261026",
+          "scene_id": "pottery",
+          "method_id": "native_base",
+          "width": 832,
+          "height": 480,
+          "frames": 480,
+          "fps": 16,
+          "duration_seconds": 30,
+          "sha256": "3e3823d079acc29c43e0ab5c0213c2a9dbc20800b1c77094e0c65debd3b398a0",
+          "full_decode_passed": true,
+          "config_sha256": "a5493206966e35d50b779074ff26a15e08f4b15d44354d216ef24dfb37c5fc39",
+          "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+          "report_sha256": "2daa82cc8f4ac186f19d69234da2c4831290bc7f53c094d4b57f844f6a2a37cd",
+          "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+          "outputs_sha256": "4851cca46c584247f9c2bce0d286cf4af8e2726ba42064d118f79eebd396cfc7"
+        },
+        "prompt_sha256": "6533914c652a92ce219195bae896986c3aa66bec43d14e7771601d0831b753d4",
+        "poster": null
+      },
+      "methods": [
+        {
+          "id": "bilinear",
+          "title": "Bilinear",
+          "subtitle": "同 Base · 双线性插值",
+          "status": "ready",
+          "url": "./media/pottery_bilinear_30s.mp4",
+          "poster": null,
+          "sha256": "1017637a82b828963f508fa4d25008e802bdfd427e7b17158bf28368bebecf3d",
+          "bytes": 21095227,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "pottery",
+            "method_id": "bilinear",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "1017637a82b828963f508fa4d25008e802bdfd427e7b17158bf28368bebecf3d",
+            "full_decode_passed": true,
+            "config_sha256": "eebb238b25f866c8b77ade6bbfc0f184b27aae199788c096d31fca23fd4b2d42",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "60902e877a453f3cf1736354e653cfbde841505767ee62cd147b147e79f3fc65",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "d9ed2215833aa01632873ca023b0934f0db613d850afab87782ba01700eb6b2d"
+          },
+          "prompt_sha256": "6533914c652a92ce219195bae896986c3aa66bec43d14e7771601d0831b753d4",
+          "provenance": {
+            "kind": "shared_native_base",
+            "native_sha256": "3e3823d079acc29c43e0ab5c0213c2a9dbc20800b1c77094e0c65debd3b398a0",
+            "native_report_sha256": "2daa82cc8f4ac186f19d69234da2c4831290bc7f53c094d4b57f844f6a2a37cd",
+            "base_manifest_sha256": "3636ba8cd25a2d8083fdbe3ca54a69489cfea2defb8c75ff4b6546e949b16730"
+          }
+        },
+        {
+          "id": "freeswim_ar_base",
+          "title": "FreeSwim + AR-RoPE",
+          "subtitle": "Base 后加噪 · 全局辅助分支 AR",
+          "status": "ready",
+          "url": "./media/pottery_freeswim_ar_base_30s.mp4",
+          "poster": null,
+          "sha256": "7c58ee237a6ccba5ed44d9d1aef53f7493a930508c823af7a34a2743a08aead8",
+          "bytes": 21522056,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "pottery",
+            "method_id": "freeswim_ar_base",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "7c58ee237a6ccba5ed44d9d1aef53f7493a930508c823af7a34a2743a08aead8",
+            "full_decode_passed": true,
+            "config_sha256": "9d79f757e019ee620c9dcba18d76b2361f7d6e1bccbac63fd6ce0347e0667963",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "3c87bc90c7074460896cdda560c01869263668aba90be78896c73462b2d797a8",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "db778eaa5c11001d475f3649d9eb8532673daf242b71f46d3fd8b2c7fc6d808b"
+          },
+          "prompt_sha256": "6533914c652a92ce219195bae896986c3aa66bec43d14e7771601d0831b753d4",
+          "provenance": {
+            "kind": "shared_native_base",
+            "native_sha256": "3e3823d079acc29c43e0ab5c0213c2a9dbc20800b1c77094e0c65debd3b398a0",
+            "native_report_sha256": "2daa82cc8f4ac186f19d69234da2c4831290bc7f53c094d4b57f844f6a2a37cd",
+            "base_manifest_sha256": "3636ba8cd25a2d8083fdbe3ca54a69489cfea2defb8c75ff4b6546e949b16730"
+          }
+        },
+        {
+          "id": "freeswim_ar_progressive",
+          "title": "FreeSwim + AR-RoPE",
+          "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈",
+          "status": "ready",
+          "url": "./media/pottery_freeswim_ar_progressive_30s.mp4",
+          "poster": null,
+          "sha256": "4864800a587177b44975ad42f4abb8525f4cf620d2a324f01a30be8249f6baf5",
+          "bytes": 15103197,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "pottery",
+            "method_id": "freeswim_ar_progressive",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "4864800a587177b44975ad42f4abb8525f4cf620d2a324f01a30be8249f6baf5",
+            "full_decode_passed": true,
+            "config_sha256": "d9193a159654aeced7c758303a1b1c7488e4ceee2d71285ca2ac2946e4216738",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "7750b6e9f519a5a99cfccf9571541518d66217cf9da2c43a306804741034b885",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "c7e5717138b1dda11b12ed2730d8e7393167fee03f18255b0a6c013f8dedd7a5"
+          },
+          "prompt_sha256": "6533914c652a92ce219195bae896986c3aa66bec43d14e7771601d0831b753d4",
+          "provenance": {
+            "kind": "progressive_hr_feedback"
+          }
+        }
+      ]
+    },
+    {
+      "id": "horse",
+      "title": "动物运动 · 草地上的马",
+      "prompt_sha256_utf8_lf": "fd6b1d8406b16d561d246329d21b2e3e7d247b37dcd0701c129db0bbe16b7acc",
+      "observation": "皮毛与鬃毛新增细节、腿部步态、运动轮廓及遮挡边缘的时间稳定性。",
+      "prompt": "A 30-second continuous, uncut video of a chestnut horse trotting at a relaxed, steady pace across a grassy meadow. A smooth side-tracking camera keeps the entire horse visible at a consistent distance. Its dark mane and tail move gently with each stride. Soft afternoon light reveals short coat hairs, subtle muscle movement, and individual strands of the mane. Grass and a distant wooden fence pass slowly through the background. Natural motion with no cuts, sudden turns, or changes of speed.",
+      "prompt_sha256": "fd6b1d8406b16d561d246329d21b2e3e7d247b37dcd0701c129db0bbe16b7acc",
+      "native_audit": {
+        "status": "ready",
+        "url": "./media/horse_base_30s.mp4",
+        "sha256": "d107cf2de0fa9fdbf42e5c3238d4e8b043da827c356206991930eca02f6a4e54",
+        "bytes": 13658207,
+        "validation": {
+          "experiment_id": "nm5_krea_five_scene_triple_20261026",
+          "scene_id": "horse",
+          "method_id": "native_base",
+          "width": 832,
+          "height": 480,
+          "frames": 480,
+          "fps": 16,
+          "duration_seconds": 30,
+          "sha256": "d107cf2de0fa9fdbf42e5c3238d4e8b043da827c356206991930eca02f6a4e54",
+          "full_decode_passed": true,
+          "config_sha256": "14239106061db00901d5a5f709a8563c2398bb1e12a0e2817ba0ca14d652a0a7",
+          "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+          "report_sha256": "2857cd8b864a3ac63bce1c3b143aae5e4358c1319b65ed3fa245f9a9fcfb11c4",
+          "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+          "outputs_sha256": "d9cec07229646d48db591dded109cf62174effd132e744056a1192aac8405731"
+        },
+        "prompt_sha256": "fd6b1d8406b16d561d246329d21b2e3e7d247b37dcd0701c129db0bbe16b7acc",
+        "poster": null
+      },
+      "methods": [
+        {
+          "id": "bilinear",
+          "title": "Bilinear",
+          "subtitle": "同 Base · 双线性插值",
+          "status": "ready",
+          "url": "./media/horse_bilinear_30s.mp4",
+          "poster": null,
+          "sha256": "37cde0c3e1369f5afecc8bfd46405e7ddfed25d159d3ebc9095191db0a7db59d",
+          "bytes": 31848788,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "horse",
+            "method_id": "bilinear",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "37cde0c3e1369f5afecc8bfd46405e7ddfed25d159d3ebc9095191db0a7db59d",
+            "full_decode_passed": true,
+            "config_sha256": "d8a88f0c6102ef67cf6bd05403cf52ded030a3c06329d6a12c415a81b23048da",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "9ae8207a3e444bbc5560c965ee9ca796bbde3c5f675faf3f48e01c1eee4bcc6d",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "59801304fae23e6347cfdbbe79a10764ced906b3ad4d929aa586dc9a98d5053c"
+          },
+          "prompt_sha256": "fd6b1d8406b16d561d246329d21b2e3e7d247b37dcd0701c129db0bbe16b7acc",
+          "provenance": {
+            "kind": "shared_native_base",
+            "native_sha256": "d107cf2de0fa9fdbf42e5c3238d4e8b043da827c356206991930eca02f6a4e54",
+            "native_report_sha256": "2857cd8b864a3ac63bce1c3b143aae5e4358c1319b65ed3fa245f9a9fcfb11c4",
+            "base_manifest_sha256": "ad253aeccbfb47ad70fd2db6bba2b945c3ceedb80dc7fd31b32c18bc82b5adbe"
+          }
+        },
+        {
+          "id": "freeswim_ar_base",
+          "title": "FreeSwim + AR-RoPE",
+          "subtitle": "Base 后加噪 · 全局辅助分支 AR",
+          "status": "ready",
+          "url": "./media/horse_freeswim_ar_base_30s.mp4",
+          "poster": null,
+          "sha256": "73fa2fd88af41869db2e1862379b44fe73e8d736d8a0e25a2008f3fd2c6b3536",
+          "bytes": 31952500,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "horse",
+            "method_id": "freeswim_ar_base",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "73fa2fd88af41869db2e1862379b44fe73e8d736d8a0e25a2008f3fd2c6b3536",
+            "full_decode_passed": true,
+            "config_sha256": "c1ed9d77f40cf3ecf8dc6e744fa98418e21e37ec380c21f5a21804f010fecae0",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "7d7e970dcf491a591ee9eef92f46a958828671c927a677284cf4a7cd860e7368",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "9a621596e4a158c30d328956611775d686f7851e6df05bd52833f009e81f2de6"
+          },
+          "prompt_sha256": "fd6b1d8406b16d561d246329d21b2e3e7d247b37dcd0701c129db0bbe16b7acc",
+          "provenance": {
+            "kind": "shared_native_base",
+            "native_sha256": "d107cf2de0fa9fdbf42e5c3238d4e8b043da827c356206991930eca02f6a4e54",
+            "native_report_sha256": "2857cd8b864a3ac63bce1c3b143aae5e4358c1319b65ed3fa245f9a9fcfb11c4",
+            "base_manifest_sha256": "ad253aeccbfb47ad70fd2db6bba2b945c3ceedb80dc7fd31b32c18bc82b5adbe"
+          }
+        },
+        {
+          "id": "freeswim_ar_progressive",
+          "title": "FreeSwim + AR-RoPE",
+          "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈",
+          "status": "ready",
+          "url": "./media/horse_freeswim_ar_progressive_30s.mp4",
+          "poster": null,
+          "sha256": "dc32766cde8140a538b5b2d51b89ec9f6381859b10932fc775fbbe4a14537418",
+          "bytes": 24942473,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "horse",
+            "method_id": "freeswim_ar_progressive",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "dc32766cde8140a538b5b2d51b89ec9f6381859b10932fc775fbbe4a14537418",
+            "full_decode_passed": true,
+            "config_sha256": "2e4eecfdd0b43467d8fb3f8bca4d5d13da5059ef9a760b85315fada4d3ad672c",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "5ad0c7a9d9a49eaa8c6aff9ecf4c4e3d4675c7355b3254f24e495ffaa50124f3",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "a3ce581e01a551afcb2b18542f5af857a3962791d22ff590229549a07ceba4be"
+          },
+          "prompt_sha256": "fd6b1d8406b16d561d246329d21b2e3e7d247b37dcd0701c129db0bbe16b7acc",
+          "provenance": {
+            "kind": "progressive_hr_feedback"
+          }
+        }
+      ]
+    },
+    {
+      "id": "city",
+      "title": "建筑空间 · 砖石街道",
+      "prompt_sha256_utf8_lf": "0046af33f3a72c8fe0a22a173a2bbe3422b89340c3e7e8ee6df9c89a265e481b",
+      "observation": "砖缝、窗格、栏杆等重复几何结构在连续透视变化下的稳定性。",
+      "prompt": "A 30-second continuous, uncut video moving slowly forward through a quiet historic street lined with brick and stone buildings. The camera maintains a level horizon and a steady walking pace. Repeated window frames, brick courses, wrought-iron railings, and paving stones remain visible as perspective changes gradually. Gentle morning light creates consistent shadows and subtle reflections in the windows. There are no pedestrians, moving vehicles, readable signs, or scene changes. Architectural photography with a natural, restrained appearance.",
+      "prompt_sha256": "0046af33f3a72c8fe0a22a173a2bbe3422b89340c3e7e8ee6df9c89a265e481b",
+      "native_audit": {
+        "status": "ready",
+        "url": "./media/city_base_30s.mp4",
+        "sha256": "42556328d383afc992cdbaf99d0f680154459addf5eb1c347b2fc272ad79dce8",
+        "bytes": 29185540,
+        "validation": {
+          "experiment_id": "nm5_krea_five_scene_triple_20261026",
+          "scene_id": "city",
+          "method_id": "native_base",
+          "width": 832,
+          "height": 480,
+          "frames": 480,
+          "fps": 16,
+          "duration_seconds": 30,
+          "sha256": "42556328d383afc992cdbaf99d0f680154459addf5eb1c347b2fc272ad79dce8",
+          "full_decode_passed": true,
+          "config_sha256": "f404dda8a75203923f46413618beeba73a519b7fb8ee9fd92a09a5252449713f",
+          "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+          "report_sha256": "2eb346515bffc8a140ce59019ad8606b889f4a7a3234b544ea548d989585f2e8",
+          "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+          "outputs_sha256": "b307a0c2df7aca40ad6d35683b277185a392f9f91e7d8f2081d7645c1afcfd19"
+        },
+        "prompt_sha256": "0046af33f3a72c8fe0a22a173a2bbe3422b89340c3e7e8ee6df9c89a265e481b",
+        "poster": null
+      },
+      "methods": [
+        {
+          "id": "bilinear",
+          "title": "Bilinear",
+          "subtitle": "同 Base · 双线性插值",
+          "status": "ready",
+          "url": "./media/city_bilinear_30s.mp4",
+          "poster": null,
+          "sha256": "c3372cc575bf6a3c32f5a35ad719a526b485afaef977321fcfc01955efa5425f",
+          "bytes": 55556250,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "city",
+            "method_id": "bilinear",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "c3372cc575bf6a3c32f5a35ad719a526b485afaef977321fcfc01955efa5425f",
+            "full_decode_passed": true,
+            "config_sha256": "26468e95e8d7604cfa6f9e2e1ad332763ff08a4633ac71ca2b541b209410d44b",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "9ab41336a5b68b7e632ea0b8c1a63ba879b7097c116aceee1014868b8d5db145",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "b82bb7adbd85ac08667f501c27d1a659be8091bce5eac19313cecad13ec7bcf9"
+          },
+          "prompt_sha256": "0046af33f3a72c8fe0a22a173a2bbe3422b89340c3e7e8ee6df9c89a265e481b",
+          "provenance": {
+            "kind": "shared_native_base",
+            "native_sha256": "42556328d383afc992cdbaf99d0f680154459addf5eb1c347b2fc272ad79dce8",
+            "native_report_sha256": "2eb346515bffc8a140ce59019ad8606b889f4a7a3234b544ea548d989585f2e8",
+            "base_manifest_sha256": "99a69c2d59376c7d2c40a96be80a319bfa9827153c4706ea41174b7340af8fb4"
+          }
+        },
+        {
+          "id": "freeswim_ar_base",
+          "title": "FreeSwim + AR-RoPE",
+          "subtitle": "Base 后加噪 · 全局辅助分支 AR",
+          "status": "ready",
+          "url": "./media/city_freeswim_ar_base_30s.mp4",
+          "poster": null,
+          "sha256": "1b7dae378cef953837246f3525ac4c9e6a1b95e6101ddf2bd6147a2b0eb33ef7",
+          "bytes": 61240862,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "city",
+            "method_id": "freeswim_ar_base",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "1b7dae378cef953837246f3525ac4c9e6a1b95e6101ddf2bd6147a2b0eb33ef7",
+            "full_decode_passed": true,
+            "config_sha256": "6672acd4b64536cb340947e2b1992d8bdf35007bee4715b8898365dafd436c54",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "297e0d1685ab6661a67bd5bfbbd733b7ed9313362dccf106b0a9fabf3bf4d695",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "298f42efdb983748f3ac8e02f5da45629b4852cdac461809f806a63065b2e6d8"
+          },
+          "prompt_sha256": "0046af33f3a72c8fe0a22a173a2bbe3422b89340c3e7e8ee6df9c89a265e481b",
+          "provenance": {
+            "kind": "shared_native_base",
+            "native_sha256": "42556328d383afc992cdbaf99d0f680154459addf5eb1c347b2fc272ad79dce8",
+            "native_report_sha256": "2eb346515bffc8a140ce59019ad8606b889f4a7a3234b544ea548d989585f2e8",
+            "base_manifest_sha256": "99a69c2d59376c7d2c40a96be80a319bfa9827153c4706ea41174b7340af8fb4"
+          }
+        },
+        {
+          "id": "freeswim_ar_progressive",
+          "title": "FreeSwim + AR-RoPE",
+          "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈",
+          "status": "ready",
+          "url": "./media/city_freeswim_ar_progressive_30s.mp4",
+          "poster": null,
+          "sha256": "9b1cb4af0ac07b1ed1d22fdd21bffd2028ffd8ba404a62ec029042f272897a3e",
+          "bytes": 35355891,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "city",
+            "method_id": "freeswim_ar_progressive",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "9b1cb4af0ac07b1ed1d22fdd21bffd2028ffd8ba404a62ec029042f272897a3e",
+            "full_decode_passed": true,
+            "config_sha256": "77883faf61c82c8f9f7b62f28fc583070fd598b5c7b6ac4c009f6148b750d0a8",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "c51b32c345b347f9e31d60e12bf8770b7c33e7fcc35c104ed61c1f7479af40bb",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "692b4f52ff2a8203362920a268a3db627657da309783cc8722bc8b1123dbfcda"
+          },
+          "prompt_sha256": "0046af33f3a72c8fe0a22a173a2bbe3422b89340c3e7e8ee6df9c89a265e481b",
+          "provenance": {
+            "kind": "progressive_hr_feedback"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stream",
+      "title": "自然动态 · 林间溪流",
+      "prompt_sha256_utf8_lf": "ae804b7e72a548d73906d581dcd0053237a38965aab5124ab2bc53c812b5a877",
+      "observation": "固定苔藓与石头的稳定性，流动水纹、透明和反射变化与异常闪烁的区别。",
+      "prompt": "A 30-second continuous, uncut video of a shallow stream flowing around moss-covered stones in a green forest. A fixed low camera shows clear moving water in the foreground and ferns along the banks. Sunlight filtered through the trees creates soft reflections on the water. Small ripples continually pass around the same stones, while nearby leaves move gently in a light breeze. Fine moss, wet rock surfaces, and transparent water remain visible throughout the shot, with no cuts or camera movement.",
+      "prompt_sha256": "ae804b7e72a548d73906d581dcd0053237a38965aab5124ab2bc53c812b5a877",
+      "native_audit": {
+        "status": "ready",
+        "url": "./media/stream_base_30s.mp4",
+        "sha256": "9a279e4b1de20d5955fb1f6fc0a2c72c45f44e86fee2926bc13b16949fe3231e",
+        "bytes": 35189527,
+        "validation": {
+          "experiment_id": "nm5_krea_five_scene_triple_20261026",
+          "scene_id": "stream",
+          "method_id": "native_base",
+          "width": 832,
+          "height": 480,
+          "frames": 480,
+          "fps": 16,
+          "duration_seconds": 30,
+          "sha256": "9a279e4b1de20d5955fb1f6fc0a2c72c45f44e86fee2926bc13b16949fe3231e",
+          "full_decode_passed": true,
+          "config_sha256": "3f67f6d49f24f8e2a2686a2269fbc95a4d64cf23734bd4a45e22fe8ecceab71e",
+          "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+          "report_sha256": "33856709632c3f961b9a7f8a047c5efb3af4bc68b7f495045ddeed41d6278963",
+          "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+          "outputs_sha256": "0154ce086816c3b2d3f51d892f622a729dde9232f1ae735e7434400784d70c6a"
+        },
+        "prompt_sha256": "ae804b7e72a548d73906d581dcd0053237a38965aab5124ab2bc53c812b5a877",
+        "poster": null
+      },
+      "methods": [
+        {
+          "id": "bilinear",
+          "title": "Bilinear",
+          "subtitle": "同 Base · 双线性插值",
+          "status": "ready",
+          "url": "./media/stream_bilinear_30s.mp4",
+          "poster": null,
+          "sha256": "5c39fba4e7baca69e1f51aa1d03d13e470d61e6f67cb923d77631822d9f3d7c6",
+          "bytes": 64957835,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "stream",
+            "method_id": "bilinear",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "5c39fba4e7baca69e1f51aa1d03d13e470d61e6f67cb923d77631822d9f3d7c6",
+            "full_decode_passed": true,
+            "config_sha256": "5154504b9e5b8b62850f6f5a1e1efcca85c014174b08a509a877e7a8f9e4a4dc",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "6a4d8689221fca26904051651460e1e3b6accf9aa29aaa946c6a928292c0aec6",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "70ed235859e95167e5a8f32ecf657c1fdd4f9f4a3824cfcddb0d6756ab5faba4"
+          },
+          "prompt_sha256": "ae804b7e72a548d73906d581dcd0053237a38965aab5124ab2bc53c812b5a877",
+          "provenance": {
+            "kind": "shared_native_base",
+            "native_sha256": "9a279e4b1de20d5955fb1f6fc0a2c72c45f44e86fee2926bc13b16949fe3231e",
+            "native_report_sha256": "33856709632c3f961b9a7f8a047c5efb3af4bc68b7f495045ddeed41d6278963",
+            "base_manifest_sha256": "678c0839e96568cadaf5e892b90593bd67a7a9a9d8e9bf4d3c7a6ace5a2d2c9d"
+          }
+        },
+        {
+          "id": "freeswim_ar_base",
+          "title": "FreeSwim + AR-RoPE",
+          "subtitle": "Base 后加噪 · 全局辅助分支 AR",
+          "status": "ready",
+          "url": "./media/stream_freeswim_ar_base_30s.mp4",
+          "poster": null,
+          "sha256": "4cc148a9d379d1098be2a30248614b0fb9038a25a361e7f890c438d01ca773fb",
+          "bytes": 67418892,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "stream",
+            "method_id": "freeswim_ar_base",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "4cc148a9d379d1098be2a30248614b0fb9038a25a361e7f890c438d01ca773fb",
+            "full_decode_passed": true,
+            "config_sha256": "6483d82a1648e8cc50aaffbbef058708f01d8de0bb60d4871d2ed596d0a94379",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "54745fcbce3fc1c821bed817c9b8d863be94e2c4f35febeb9d108bb9a0c81b6a",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "e4437dadfdf987cb991c2f32e20c8d572413cb0f268aa44afdf973798e13eb21"
+          },
+          "prompt_sha256": "ae804b7e72a548d73906d581dcd0053237a38965aab5124ab2bc53c812b5a877",
+          "provenance": {
+            "kind": "shared_native_base",
+            "native_sha256": "9a279e4b1de20d5955fb1f6fc0a2c72c45f44e86fee2926bc13b16949fe3231e",
+            "native_report_sha256": "33856709632c3f961b9a7f8a047c5efb3af4bc68b7f495045ddeed41d6278963",
+            "base_manifest_sha256": "678c0839e96568cadaf5e892b90593bd67a7a9a9d8e9bf4d3c7a6ace5a2d2c9d"
+          }
+        },
+        {
+          "id": "freeswim_ar_progressive",
+          "title": "FreeSwim + AR-RoPE",
+          "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈",
+          "status": "ready",
+          "url": "./media/stream_freeswim_ar_progressive_30s.mp4",
+          "poster": null,
+          "sha256": "e5a4b3ce612cc1b4e0e511bd93a543e715c60517c6247d848661b81f9982779e",
+          "bytes": 31016501,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "stream",
+            "method_id": "freeswim_ar_progressive",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "e5a4b3ce612cc1b4e0e511bd93a543e715c60517c6247d848661b81f9982779e",
+            "full_decode_passed": true,
+            "config_sha256": "40fa35ca7d32204348091800ea47f53cf5156035d69cfe60152d1803c6dff543",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "4624f8f7f202e97cac9008ebc2e05305f7c9fc2a0d3c6985552c6302a3c097a2",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "76047d531152d38a55a38d3f0495ea7ae5a6b8bb47c167e4ff2a69b14bc332f5"
+          },
+          "prompt_sha256": "ae804b7e72a548d73906d581dcd0053237a38965aab5124ab2bc53c812b5a877",
+          "provenance": {
+            "kind": "progressive_hr_feedback"
+          }
+        }
+      ]
+    },
+    {
+      "id": "macro",
+      "title": "微距材质 · 雕纹银戒",
+      "prompt_sha256_utf8_lf": "353456621b4dfb4e871fcbe9b90077b9b74da46e9be4ecf8592a509d4ced7fd8",
+      "observation": "固定雕纹和划痕与移动高光的区分，视角变化下金属材质和新增细节的一致性。",
+      "prompt": "A 30-second continuous, uncut macro video of a silver ring standing upright on a slowly rotating matte-black display platform. A fixed camera keeps the entire ring visible and sharply focused. The ring has a simple repeating engraved leaf pattern and a smooth inner surface, without lettering or gemstones. Broad, stationary studio lights create soft highlights that move naturally across the metal as it rotates. Fine scratches, shallow engraving, and brushed silver texture remain visible against a plain dark background.",
+      "prompt_sha256": "353456621b4dfb4e871fcbe9b90077b9b74da46e9be4ecf8592a509d4ced7fd8",
+      "native_audit": {
+        "status": "ready",
+        "url": "./media/macro_base_30s.mp4",
+        "sha256": "fce318c6c62853c5ab19bdf4b52e60d64b6868e6853a207be6463cf3fe034a1d",
+        "bytes": 8489226,
+        "validation": {
+          "experiment_id": "nm5_krea_five_scene_triple_20261026",
+          "scene_id": "macro",
+          "method_id": "native_base",
+          "width": 832,
+          "height": 480,
+          "frames": 480,
+          "fps": 16,
+          "duration_seconds": 30,
+          "sha256": "fce318c6c62853c5ab19bdf4b52e60d64b6868e6853a207be6463cf3fe034a1d",
+          "full_decode_passed": true,
+          "config_sha256": "b99f692683646f495f9a39bfef890eda7e8c12f138a079b3f6387c72fbbf9240",
+          "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+          "report_sha256": "bbff1f73d1ca7b3dbbd6187de893eee72d074e1f671973d44013d7d7ac806a9f",
+          "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+          "outputs_sha256": "75765d746c775657d034b9ab80ce9a837d40e71819192d809450523d1141a197"
+        },
+        "prompt_sha256": "353456621b4dfb4e871fcbe9b90077b9b74da46e9be4ecf8592a509d4ced7fd8",
+        "poster": null
+      },
+      "methods": [
+        {
+          "id": "bilinear",
+          "title": "Bilinear",
+          "subtitle": "同 Base · 双线性插值",
+          "status": "ready",
+          "url": "./media/macro_bilinear_30s.mp4",
+          "poster": null,
+          "sha256": "5c17495a69c841bd3d5a8a72309b987d71708db7d02fada28fbdbb3b86f32237",
+          "bytes": 20433130,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "macro",
+            "method_id": "bilinear",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "5c17495a69c841bd3d5a8a72309b987d71708db7d02fada28fbdbb3b86f32237",
+            "full_decode_passed": true,
+            "config_sha256": "ae801f5634e31ac48719b82b953d878065857657bd54cb2c705656ed4d699405",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "9f2fae8c0078fb33885f17291d02bf35f562a77e1d89eab6d1105bb19741863d",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "2c0318c307333f57239286f114458952805a3d13f57868d5e610d44b5b486a74"
+          },
+          "prompt_sha256": "353456621b4dfb4e871fcbe9b90077b9b74da46e9be4ecf8592a509d4ced7fd8",
+          "provenance": {
+            "kind": "shared_native_base",
+            "native_sha256": "fce318c6c62853c5ab19bdf4b52e60d64b6868e6853a207be6463cf3fe034a1d",
+            "native_report_sha256": "bbff1f73d1ca7b3dbbd6187de893eee72d074e1f671973d44013d7d7ac806a9f",
+            "base_manifest_sha256": "123ebde73c7b50816e4c461213061081ebc04df5ca34492624b0fc529779f8df"
+          }
+        },
+        {
+          "id": "freeswim_ar_base",
+          "title": "FreeSwim + AR-RoPE",
+          "subtitle": "Base 后加噪 · 全局辅助分支 AR",
+          "status": "ready",
+          "url": "./media/macro_freeswim_ar_base_30s.mp4",
+          "poster": null,
+          "sha256": "4cf707f2a224deade8c0a7534dc610e36e2850278af728f5f3cfbd1909338c65",
+          "bytes": 24631750,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "macro",
+            "method_id": "freeswim_ar_base",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "4cf707f2a224deade8c0a7534dc610e36e2850278af728f5f3cfbd1909338c65",
+            "full_decode_passed": true,
+            "config_sha256": "aa7248b45145eba73346e90d9e5842c684164f7e3b71bc3e6a4517c6cf132f48",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "af17f9cad797881507df488d93fc638661eede00ba8155afe0cf30e603b94841",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "16dec5c744382d1ff8937b22d55eb5244a6ee66f194d25621e21f4a9a53a70bb"
+          },
+          "prompt_sha256": "353456621b4dfb4e871fcbe9b90077b9b74da46e9be4ecf8592a509d4ced7fd8",
+          "provenance": {
+            "kind": "shared_native_base",
+            "native_sha256": "fce318c6c62853c5ab19bdf4b52e60d64b6868e6853a207be6463cf3fe034a1d",
+            "native_report_sha256": "bbff1f73d1ca7b3dbbd6187de893eee72d074e1f671973d44013d7d7ac806a9f",
+            "base_manifest_sha256": "123ebde73c7b50816e4c461213061081ebc04df5ca34492624b0fc529779f8df"
+          }
+        },
+        {
+          "id": "freeswim_ar_progressive",
+          "title": "FreeSwim + AR-RoPE",
+          "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈",
+          "status": "ready",
+          "url": "./media/macro_freeswim_ar_progressive_30s.mp4",
+          "poster": null,
+          "sha256": "3da18d9f897c447f84c9704e8a02a4cddf0b03eaef1896708228e14b5b20c72e",
+          "bytes": 14041108,
+          "validation": {
+            "experiment_id": "nm5_krea_five_scene_triple_20261026",
+            "scene_id": "macro",
+            "method_id": "freeswim_ar_progressive",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "3da18d9f897c447f84c9704e8a02a4cddf0b03eaef1896708228e14b5b20c72e",
+            "full_decode_passed": true,
+            "config_sha256": "08513dbae5e52a62637f420944a48593b63a5540f1d7f2353a9ed2a757e53188",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "report_sha256": "8ee056bccbea560b3b499833c1ceb2232fe6b65b7234917698211c8bd2de2c54",
+            "source_freeze_sha256": "f3201f55931f0580e0759ce271a1cfb022ff5fe75e4dd8fa7bf1ac74c019493c",
+            "outputs_sha256": "c68024811202e3907841cb96c332417ad154f8d0853ae8fa340b0fd7ddcd81b6"
+          },
+          "prompt_sha256": "353456621b4dfb4e871fcbe9b90077b9b74da46e9be4ecf8592a509d4ced7fd8",
+          "provenance": {
+            "kind": "progressive_hr_feedback"
+          }
+        }
+      ]
+    }
+  ],
+  "publication": {
+    "mode": "complete",
+    "user_authorized": true,
+    "updated_at_utc": "2026-10-26T06:51:04.218Z",
+    "display_ready": 15,
+    "native_ready": 5
+  }
+}

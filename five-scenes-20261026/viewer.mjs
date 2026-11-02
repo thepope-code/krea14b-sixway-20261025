@@ -95,7 +95,7 @@ function makeCard(scene, method, group) {
   header.addEventListener('keydown', event => {
     if (event.target !== header || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
-    const position = event.key === 'Home' ? 0 : event.key === 'End' ? 2 : state.order.indexOf(method.id) + (event.key === 'ArrowLeft' ? -1 : 1);
+    const position = event.key === 'Home' ? 0 : event.key === 'End' ? state.order.length - 1 : state.order.indexOf(method.id) + (event.key === 'ArrowLeft' ? -1 : 1);
     changeOrder(moveMethod(state.order, method.id, position), { scene: scene.id, method: method.id, control: 'header' });
   });
   header.addEventListener('dragstart', event => { state.dragging = method.id; event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('text/plain', method.id); });
@@ -151,12 +151,12 @@ function makeGroup(scene, index) {
   copy.append(title, element('p', 'observation', `观察重点：${scene.observation}`));
   const controls = element('div', 'group-controls');
   const grid = element('div', 'video-grid');
-  const seek = element('input'); seek.type = 'range'; seek.min = '0'; seek.max = '30'; seek.step = '0.0625'; seek.value = '0'; seek.setAttribute('aria-label', `${scene.title}：三路跳转至同一时间`);
+  const seek = element('input'); seek.type = 'range'; seek.min = '0'; seek.max = '30'; seek.step = '0.0625'; seek.value = '0'; seek.setAttribute('aria-label', `${scene.title}：五路跳转至同一时间`);
   const time = element('span', 'time-label', stamp(0));
   const group = { scene, section, grid, seek, time, cards: new Map(), seeking: false };
-  const play = button('播放本组', `播放 ${scene.title} 三路视频`, () => { attachVisibleMedia(group); videos(group).forEach(startVideo); }, 'primary');
-  const pause = button('暂停', `暂停 ${scene.title} 三路视频`, () => videos(group).forEach(video => video.pause()));
-  const restart = button('重播', `重播 ${scene.title} 三路视频`, () => { seekGroup(group, 0); videos(group).forEach(startVideo); });
+  const play = button('播放本组', `播放 ${scene.title} 五路视频`, () => { attachVisibleMedia(group); videos(group).forEach(startVideo); }, 'primary');
+  const pause = button('暂停', `暂停 ${scene.title} 五路视频`, () => videos(group).forEach(video => video.pause()));
+  const restart = button('重播', `重播 ${scene.title} 五路视频`, () => { seekGroup(group, 0); videos(group).forEach(startVideo); });
   const seekLabel = element('label', '', '跳转'); seekLabel.append(seek);
   const canPlay = scene.methods.some(isPlayable);
   [play, pause, restart, seek].forEach(control => { control.disabled = !canPlay; });
@@ -169,9 +169,14 @@ function makeGroup(scene, index) {
   const details = element('details', 'prompt-details');
   details.append(element('summary', '', '查看本组完整英文提示词与来源标识'), element('p', 'prompt-body', scene.prompt), element('p', 'prompt-hash', `Prompt SHA-256（UTF-8 + LF）：${scene.prompt_sha256}`));
   if (isPlayable(scene.native_audit)) {
-    const audit = element('a', '', '打开本组 Native Base（审计原片）↗');
+    const audit = element('a', '', '原三方法 Native Base（审计原片）↗');
     audit.href = scene.native_audit.url; audit.target = '_blank'; audit.rel = 'noopener';
     details.append(audit);
+  }
+  if (isPlayable(scene.new_native_audit)) {
+    const audit = element('a', '', '新增 FreeSwim Native Base（审计原片）↗');
+    audit.href = scene.new_native_audit.url; audit.target = '_blank'; audit.rel = 'noopener';
+    details.append(element('span', '', '　·　'), audit);
   }
   section.append(heading, grid, details);
   return group;
@@ -187,11 +192,12 @@ async function initialize() {
   const partial = manifest.publication?.mode === 'partial';
   const release = publicationReadiness(manifest, { allowPartial: partial });
   if (available && !release.ready) throw new Error(`媒体清单尚未通过发布门禁：${release.errors.join('；')}`);
-  $('#page-status').textContent = release.ready ? `${available} / 15 已验收${partial ? ' · 部分结果更新中' : ' · 完整结果'}` : '本地模板 · 0 / 15 已验收';
-  $('#footer-status').textContent = release.ready ? partial ? '仅展示已验收原片；其余结果仍在生成或验收中' : '十五路展示视频与五份 Native 审计均已验证' : '本地准备状态，不代表已生成或已发布';
+  const total = manifest.scenes.length * METHOD_IDS.length;
+  $('#page-status').textContent = release.ready ? `${available} / ${total} 已验收${partial ? ' · 新增结果更新中' : ' · 完整结果'}` : '本地准备 · 媒体校验未完成';
+  $('#footer-status').textContent = release.ready ? partial ? '保留原三方法；新增结果仍在生成或验收中' : '二十五路展示视频与两批共十份 Native 审计均已验证' : '本地准备状态，不代表已生成或已发布';
   if (release.ready && partial) {
     $('#preparation-notice').hidden = false;
-    $('#preparation-notice').textContent = `部分结果更新中：当前 ${available} / 15 路展示视频已完成来源、规格、完整解码和 SHA 验收。其余卡片仅标记“生成中／待验收”，不会加载其他视频；这不表示整个实验或流水线已完成。`;
+    $('#preparation-notice').textContent = `新增结果更新中：当前 ${available} / ${total} 路展示视频已验收。尚未完成的位置标记“生成中／待验收”。新增无 AR-RoPE 的 Base 后加噪方法使用重新生成的 Base，与原 AR-RoPE 方法不共享同一份 Base；请结合下方比较说明查看。`;
   } else if (!release.ready) {
     $('#preparation-notice').hidden = false;
     $('#preparation-notice').textContent = '这是本地实验展示模板，目前尚未接入已验收的本轮视频。下方是待生成或待验收位置，不是实验结果。';

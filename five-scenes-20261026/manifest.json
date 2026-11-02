@@ -1,8 +1,8 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "experiment_id": "nm5_krea_five_scene_triple_20261026",
-  "title": "Krea 14B · 五场景三方法对照",
-  "description": "五种场景，三条高清生成路线。原始 MP4 渐进播放，独立缓冲。",
+  "title": "Krea 14B · 五场景五方法对照",
+  "description": "保留原三种方法，新增两种无 AR-RoPE 的 FreeSwim 路线。新增 Base 重新生成。",
   "pipeline": {
     "experiment_id": "nm5_krea_five_scene_triple_20261026",
     "status": "completed",
@@ -86,7 +86,7 @@
       "prompt_sha256": "6533914c652a92ce219195bae896986c3aa66bec43d14e7771601d0831b753d4",
       "native_audit": {
         "status": "ready",
-        "url": "./media/pottery_base_30s.mp4",
+        "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/pottery_base_30s.mp4",
         "sha256": "3e3823d079acc29c43e0ab5c0213c2a9dbc20800b1c77094e0c65debd3b398a0",
         "bytes": 9170776,
         "validation": {
@@ -115,7 +115,7 @@
           "title": "Bilinear",
           "subtitle": "同 Base · 双线性插值",
           "status": "ready",
-          "url": "./media/pottery_bilinear_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/pottery_bilinear_30s.mp4",
           "poster": null,
           "sha256": "1017637a82b828963f508fa4d25008e802bdfd427e7b17158bf28368bebecf3d",
           "bytes": 21095227,
@@ -149,7 +149,7 @@
           "title": "FreeSwim + AR-RoPE",
           "subtitle": "Base 后加噪 · 全局辅助分支 AR",
           "status": "ready",
-          "url": "./media/pottery_freeswim_ar_base_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/pottery_freeswim_ar_base_30s.mp4",
           "poster": null,
           "sha256": "7c58ee237a6ccba5ed44d9d1aef53f7493a930508c823af7a34a2743a08aead8",
           "bytes": 21522056,
@@ -183,7 +183,7 @@
           "title": "FreeSwim + AR-RoPE",
           "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈",
           "status": "ready",
-          "url": "./media/pottery_freeswim_ar_progressive_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/pottery_freeswim_ar_progressive_30s.mp4",
           "poster": null,
           "sha256": "4864800a587177b44975ad42f4abb8525f4cf620d2a324f01a30be8249f6baf5",
           "bytes": 15103197,
@@ -208,8 +208,100 @@
           "provenance": {
             "kind": "progressive_hr_feedback"
           }
+        },
+        {
+          "id": "freeswim_base",
+          "title": "FreeSwim",
+          "subtitle": "Base 后加噪 · 无 AR-RoPE",
+          "status": "ready",
+          "url": "https://github.com/thepope-code/krea14b-sixway-20261025/releases/download/krea-freeswim-20261102/pottery_freeswim_base_30s.mp4",
+          "poster": null,
+          "sha256": "5eba11043e5bb52d7ee99234534b797d357b5552de31b00803a279f0f4bde0ec",
+          "bytes": 20514627,
+          "prompt_sha256": "6533914c652a92ce219195bae896986c3aa66bec43d14e7771601d0831b753d4",
+          "validation": {
+            "experiment_id": "autodl_krea_five_scene_freeswim_20261102",
+            "scene_id": "pottery",
+            "method_id": "freeswim_base",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "5eba11043e5bb52d7ee99234534b797d357b5552de31b00803a279f0f4bde0ec",
+            "full_decode_passed": true,
+            "config_sha256": "8386737c93a8667c7854151d2e835d5f8fba50f464153f7472110b1b4613e873",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "source_freeze_sha256": "1e3d22db6127b213cbda4738e4a7863d9ed40058a41cd1265c28f1f3f31b8f0d",
+            "report_sha256": "8c52860e7455d6e087eb66a64a4f1d9d5caa54e3d4bf943ff6c556fc5a712d87"
+          },
+          "validation_report": "reports/freeswim-pottery-verified.json",
+          "provenance": {
+            "kind": "shared_native_base",
+            "attention": "freeswim",
+            "ar_rope": false,
+            "native_sha256": "a8ef6774368f932eeca7f0c1e85fe691e7690b9fa80fd47c515cbc231d83d282"
+          }
+        },
+        {
+          "id": "freeswim_progressive",
+          "title": "FreeSwim",
+          "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈 · 无 AR-RoPE",
+          "status": "ready",
+          "url": "https://github.com/thepope-code/krea14b-sixway-20261025/releases/download/krea-freeswim-20261102/pottery_freeswim_progressive_30s.mp4",
+          "poster": null,
+          "sha256": "492e7346e972b71be2a207708b7218009532919f2a0029bdb772d1148f2f9de0",
+          "bytes": 15478635,
+          "prompt_sha256": "6533914c652a92ce219195bae896986c3aa66bec43d14e7771601d0831b753d4",
+          "validation": {
+            "experiment_id": "autodl_krea_five_scene_freeswim_20261102",
+            "scene_id": "pottery",
+            "method_id": "freeswim_progressive",
+            "width": 1664,
+            "height": 960,
+            "frames": 480,
+            "fps": 16,
+            "duration_seconds": 30,
+            "sha256": "492e7346e972b71be2a207708b7218009532919f2a0029bdb772d1148f2f9de0",
+            "full_decode_passed": true,
+            "config_sha256": "6c09284ecaa5c1c773480c564e0677591dcba5bf6b79f37104312b36ba357e60",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "source_freeze_sha256": "1e3d22db6127b213cbda4738e4a7863d9ed40058a41cd1265c28f1f3f31b8f0d",
+            "report_sha256": "8c52860e7455d6e087eb66a64a4f1d9d5caa54e3d4bf943ff6c556fc5a712d87"
+          },
+          "validation_report": "reports/freeswim-pottery-verified.json",
+          "provenance": {
+            "kind": "progressive_hr_feedback",
+            "attention": "freeswim",
+            "ar_rope": false
+          }
         }
-      ]
+      ],
+      "new_native_audit": {
+        "status": "ready",
+        "url": "https://github.com/thepope-code/krea14b-sixway-20261025/releases/download/krea-freeswim-20261102/pottery_base_30s.mp4",
+        "poster": null,
+        "sha256": "a8ef6774368f932eeca7f0c1e85fe691e7690b9fa80fd47c515cbc231d83d282",
+        "bytes": 8866994,
+        "prompt_sha256": "6533914c652a92ce219195bae896986c3aa66bec43d14e7771601d0831b753d4",
+        "validation": {
+          "experiment_id": "autodl_krea_five_scene_freeswim_20261102",
+          "scene_id": "pottery",
+          "method_id": "native_base",
+          "width": 832,
+          "height": 480,
+          "frames": 480,
+          "fps": 16,
+          "duration_seconds": 30,
+          "sha256": "a8ef6774368f932eeca7f0c1e85fe691e7690b9fa80fd47c515cbc231d83d282",
+          "full_decode_passed": true,
+          "config_sha256": "2d27062c735cd2f2925a2bd2ffdad4566200235f4652cff68aacbc8960777d03",
+          "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+          "source_freeze_sha256": "1e3d22db6127b213cbda4738e4a7863d9ed40058a41cd1265c28f1f3f31b8f0d",
+          "report_sha256": "8c52860e7455d6e087eb66a64a4f1d9d5caa54e3d4bf943ff6c556fc5a712d87"
+        },
+        "validation_report": "reports/freeswim-pottery-verified.json"
+      }
     },
     {
       "id": "horse",
@@ -220,7 +312,7 @@
       "prompt_sha256": "fd6b1d8406b16d561d246329d21b2e3e7d247b37dcd0701c129db0bbe16b7acc",
       "native_audit": {
         "status": "ready",
-        "url": "./media/horse_base_30s.mp4",
+        "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/horse_base_30s.mp4",
         "sha256": "d107cf2de0fa9fdbf42e5c3238d4e8b043da827c356206991930eca02f6a4e54",
         "bytes": 13658207,
         "validation": {
@@ -249,7 +341,7 @@
           "title": "Bilinear",
           "subtitle": "同 Base · 双线性插值",
           "status": "ready",
-          "url": "./media/horse_bilinear_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/horse_bilinear_30s.mp4",
           "poster": null,
           "sha256": "37cde0c3e1369f5afecc8bfd46405e7ddfed25d159d3ebc9095191db0a7db59d",
           "bytes": 31848788,
@@ -283,7 +375,7 @@
           "title": "FreeSwim + AR-RoPE",
           "subtitle": "Base 后加噪 · 全局辅助分支 AR",
           "status": "ready",
-          "url": "./media/horse_freeswim_ar_base_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/horse_freeswim_ar_base_30s.mp4",
           "poster": null,
           "sha256": "73fa2fd88af41869db2e1862379b44fe73e8d736d8a0e25a2008f3fd2c6b3536",
           "bytes": 31952500,
@@ -317,7 +409,7 @@
           "title": "FreeSwim + AR-RoPE",
           "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈",
           "status": "ready",
-          "url": "./media/horse_freeswim_ar_progressive_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/horse_freeswim_ar_progressive_30s.mp4",
           "poster": null,
           "sha256": "dc32766cde8140a538b5b2d51b89ec9f6381859b10932fc775fbbe4a14537418",
           "bytes": 24942473,
@@ -342,8 +434,29 @@
           "provenance": {
             "kind": "progressive_hr_feedback"
           }
+        },
+        {
+          "id": "freeswim_base",
+          "title": "FreeSwim",
+          "subtitle": "Base 后加噪 · 无 AR-RoPE",
+          "status": "pending",
+          "url": null,
+          "poster": null
+        },
+        {
+          "id": "freeswim_progressive",
+          "title": "FreeSwim",
+          "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈 · 无 AR-RoPE",
+          "status": "pending",
+          "url": null,
+          "poster": null
         }
-      ]
+      ],
+      "new_native_audit": {
+        "status": "pending",
+        "url": null,
+        "poster": null
+      }
     },
     {
       "id": "city",
@@ -354,7 +467,7 @@
       "prompt_sha256": "0046af33f3a72c8fe0a22a173a2bbe3422b89340c3e7e8ee6df9c89a265e481b",
       "native_audit": {
         "status": "ready",
-        "url": "./media/city_base_30s.mp4",
+        "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/city_base_30s.mp4",
         "sha256": "42556328d383afc992cdbaf99d0f680154459addf5eb1c347b2fc272ad79dce8",
         "bytes": 29185540,
         "validation": {
@@ -383,7 +496,7 @@
           "title": "Bilinear",
           "subtitle": "同 Base · 双线性插值",
           "status": "ready",
-          "url": "./media/city_bilinear_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/city_bilinear_30s.mp4",
           "poster": null,
           "sha256": "c3372cc575bf6a3c32f5a35ad719a526b485afaef977321fcfc01955efa5425f",
           "bytes": 55556250,
@@ -417,7 +530,7 @@
           "title": "FreeSwim + AR-RoPE",
           "subtitle": "Base 后加噪 · 全局辅助分支 AR",
           "status": "ready",
-          "url": "./media/city_freeswim_ar_base_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/city_freeswim_ar_base_30s.mp4",
           "poster": null,
           "sha256": "1b7dae378cef953837246f3525ac4c9e6a1b95e6101ddf2bd6147a2b0eb33ef7",
           "bytes": 61240862,
@@ -451,7 +564,7 @@
           "title": "FreeSwim + AR-RoPE",
           "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈",
           "status": "ready",
-          "url": "./media/city_freeswim_ar_progressive_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/city_freeswim_ar_progressive_30s.mp4",
           "poster": null,
           "sha256": "9b1cb4af0ac07b1ed1d22fdd21bffd2028ffd8ba404a62ec029042f272897a3e",
           "bytes": 35355891,
@@ -476,8 +589,29 @@
           "provenance": {
             "kind": "progressive_hr_feedback"
           }
+        },
+        {
+          "id": "freeswim_base",
+          "title": "FreeSwim",
+          "subtitle": "Base 后加噪 · 无 AR-RoPE",
+          "status": "pending",
+          "url": null,
+          "poster": null
+        },
+        {
+          "id": "freeswim_progressive",
+          "title": "FreeSwim",
+          "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈 · 无 AR-RoPE",
+          "status": "pending",
+          "url": null,
+          "poster": null
         }
-      ]
+      ],
+      "new_native_audit": {
+        "status": "pending",
+        "url": null,
+        "poster": null
+      }
     },
     {
       "id": "stream",
@@ -488,7 +622,7 @@
       "prompt_sha256": "ae804b7e72a548d73906d581dcd0053237a38965aab5124ab2bc53c812b5a877",
       "native_audit": {
         "status": "ready",
-        "url": "./media/stream_base_30s.mp4",
+        "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/stream_base_30s.mp4",
         "sha256": "9a279e4b1de20d5955fb1f6fc0a2c72c45f44e86fee2926bc13b16949fe3231e",
         "bytes": 35189527,
         "validation": {
@@ -517,7 +651,7 @@
           "title": "Bilinear",
           "subtitle": "同 Base · 双线性插值",
           "status": "ready",
-          "url": "./media/stream_bilinear_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/stream_bilinear_30s.mp4",
           "poster": null,
           "sha256": "5c39fba4e7baca69e1f51aa1d03d13e470d61e6f67cb923d77631822d9f3d7c6",
           "bytes": 64957835,
@@ -551,7 +685,7 @@
           "title": "FreeSwim + AR-RoPE",
           "subtitle": "Base 后加噪 · 全局辅助分支 AR",
           "status": "ready",
-          "url": "./media/stream_freeswim_ar_base_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/stream_freeswim_ar_base_30s.mp4",
           "poster": null,
           "sha256": "4cc148a9d379d1098be2a30248614b0fb9038a25a361e7f890c438d01ca773fb",
           "bytes": 67418892,
@@ -585,7 +719,7 @@
           "title": "FreeSwim + AR-RoPE",
           "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈",
           "status": "ready",
-          "url": "./media/stream_freeswim_ar_progressive_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/stream_freeswim_ar_progressive_30s.mp4",
           "poster": null,
           "sha256": "e5a4b3ce612cc1b4e0e511bd93a543e715c60517c6247d848661b81f9982779e",
           "bytes": 31016501,
@@ -610,8 +744,29 @@
           "provenance": {
             "kind": "progressive_hr_feedback"
           }
+        },
+        {
+          "id": "freeswim_base",
+          "title": "FreeSwim",
+          "subtitle": "Base 后加噪 · 无 AR-RoPE",
+          "status": "pending",
+          "url": null,
+          "poster": null
+        },
+        {
+          "id": "freeswim_progressive",
+          "title": "FreeSwim",
+          "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈 · 无 AR-RoPE",
+          "status": "pending",
+          "url": null,
+          "poster": null
         }
-      ]
+      ],
+      "new_native_audit": {
+        "status": "pending",
+        "url": null,
+        "poster": null
+      }
     },
     {
       "id": "macro",
@@ -622,7 +777,7 @@
       "prompt_sha256": "353456621b4dfb4e871fcbe9b90077b9b74da46e9be4ecf8592a509d4ced7fd8",
       "native_audit": {
         "status": "ready",
-        "url": "./media/macro_base_30s.mp4",
+        "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/macro_base_30s.mp4",
         "sha256": "fce318c6c62853c5ab19bdf4b52e60d64b6868e6853a207be6463cf3fe034a1d",
         "bytes": 8489226,
         "validation": {
@@ -651,7 +806,7 @@
           "title": "Bilinear",
           "subtitle": "同 Base · 双线性插值",
           "status": "ready",
-          "url": "./media/macro_bilinear_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/macro_bilinear_30s.mp4",
           "poster": null,
           "sha256": "5c17495a69c841bd3d5a8a72309b987d71708db7d02fada28fbdbb3b86f32237",
           "bytes": 20433130,
@@ -685,7 +840,7 @@
           "title": "FreeSwim + AR-RoPE",
           "subtitle": "Base 后加噪 · 全局辅助分支 AR",
           "status": "ready",
-          "url": "./media/macro_freeswim_ar_base_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/macro_freeswim_ar_base_30s.mp4",
           "poster": null,
           "sha256": "4cf707f2a224deade8c0a7534dc610e36e2850278af728f5f3cfbd1909338c65",
           "bytes": 24631750,
@@ -719,7 +874,7 @@
           "title": "FreeSwim + AR-RoPE",
           "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈",
           "status": "ready",
-          "url": "./media/macro_freeswim_ar_progressive_30s.mp4",
+          "url": "https://thepope-code.github.io/krea14b-sixway-20261025/five-scenes-20261026/media/macro_freeswim_ar_progressive_30s.mp4",
           "poster": null,
           "sha256": "3da18d9f897c447f84c9704e8a02a4cddf0b03eaef1896708228e14b5b20c72e",
           "bytes": 14041108,
@@ -744,15 +899,46 @@
           "provenance": {
             "kind": "progressive_hr_feedback"
           }
+        },
+        {
+          "id": "freeswim_base",
+          "title": "FreeSwim",
+          "subtitle": "Base 后加噪 · 无 AR-RoPE",
+          "status": "pending",
+          "url": null,
+          "poster": null
+        },
+        {
+          "id": "freeswim_progressive",
+          "title": "FreeSwim",
+          "subtitle": "低清 2 步 → 高清 3 步 · HR 反馈 · 无 AR-RoPE",
+          "status": "pending",
+          "url": null,
+          "poster": null
         }
-      ]
+      ],
+      "new_native_audit": {
+        "status": "pending",
+        "url": null,
+        "poster": null
+      }
     }
   ],
   "publication": {
-    "mode": "complete",
+    "mode": "partial",
     "user_authorized": true,
-    "updated_at_utc": "2026-10-26T06:51:04.218Z",
-    "display_ready": 15,
-    "native_ready": 5
+    "draft_only": false,
+    "updated_utc": "2026-11-02T20:27:26.204Z"
+  },
+  "extension": {
+    "experiment_id": "autodl_krea_five_scene_freeswim_20261102",
+    "regenerated_base": true,
+    "source_equivalent_to_prior_production": false,
+    "pipeline": {
+      "experiment_id": "autodl_krea_five_scene_freeswim_20261102",
+      "status": "generating",
+      "execution_succeeded": false,
+      "summary_verified": false
+    }
   }
 }

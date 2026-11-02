@@ -1,9 +1,12 @@
-export const METHOD_IDS = ['bilinear', 'freeswim_ar_base', 'freeswim_ar_progressive'];
+export const NEW_METHOD_IDS = ['freeswim_base', 'freeswim_progressive'];
+export const METHOD_IDS = ['bilinear', 'freeswim_ar_base', 'freeswim_ar_progressive', ...NEW_METHOD_IDS];
 export const SCENE_IDS = ['pottery', 'horse', 'city', 'stream', 'macro'];
 export const METHOD_LABELS = {
   bilinear: { title: 'Bilinear', subtitle: '同 Base · 双线性插值' },
   freeswim_ar_base: { title: 'FreeSwim + AR-RoPE', subtitle: 'Base 后加噪 · 全局辅助分支 AR' },
   freeswim_ar_progressive: { title: 'FreeSwim + AR-RoPE', subtitle: '低清 2 步 → 高清 3 步 · HR 反馈' },
+  freeswim_base: { title: 'FreeSwim', subtitle: 'Base 后加噪 · 无 AR-RoPE' },
+  freeswim_progressive: { title: 'FreeSwim', subtitle: '低清 2 步 → 高清 3 步 · HR 反馈 · 无 AR-RoPE' },
 };
 export const ORDER_KEY = 'krea14b-five-scene-20261026:method-order:v1';
 
@@ -35,16 +38,18 @@ export function isPlayable(method) {
 
 export function manifestShapeErrors(manifest) {
   const errors = [];
-  if (manifest?.schema_version !== 1) errors.push('schema_version 必须为 1');
+  if (manifest?.schema_version !== 2) errors.push('schema_version 必须为 2');
   if (manifest?.experiment_id !== 'nm5_krea_five_scene_triple_20261026') errors.push('实验标识不匹配');
+  if (manifest?.extension?.experiment_id !== 'autodl_krea_five_scene_freeswim_20261102') errors.push('新增实验标识不匹配');
+  if (manifest?.extension?.regenerated_base !== true) errors.push('必须披露新增方法使用重新生成的 Base');
   if (!Array.isArray(manifest?.scenes) || manifest.scenes.length !== 5) return [...errors, '必须包含五个场景'];
   if (new Set(manifest.scenes.map(s => s.id)).size !== 5 || !SCENE_IDS.every(id => manifest.scenes.some(s => s.id === id))) errors.push('场景标识缺失或重复');
   for (const scene of manifest.scenes) {
     if (!scene.title || !scene.prompt || !scene.observation || !/^[a-f0-9]{64}$/.test(scene.prompt_sha256 ?? '')) errors.push(`${scene.id}: 场景文案或提示词 SHA 缺失`);
-    if (!Array.isArray(scene.methods) || scene.methods.length !== 3 || new Set(scene.methods.map(m => m.id)).size !== 3 || !METHOD_IDS.every(id => scene.methods.some(m => m.id === id))) {
-      errors.push(`${scene.id}: 必须恰好包含三个选定方法`); continue;
+    if (!Array.isArray(scene.methods) || scene.methods.length !== 5 || new Set(scene.methods.map(m => m.id)).size !== 5 || !METHOD_IDS.every(id => scene.methods.some(m => m.id === id))) {
+      errors.push(`${scene.id}: 必须恰好包含五个选定方法`); continue;
     }
-    for (const method of [...scene.methods, { ...scene.native_audit, id: 'native_base' }]) {
+    for (const method of [...scene.methods, { ...scene.native_audit, id: 'native_base' }, { ...scene.new_native_audit, id: 'new_native_base' }]) {
       if (!['pending', 'ready', 'failed'].includes(method.status)) errors.push(`${scene.id}/${method.id}: 不支持的媒体状态`);
       if (method.status === 'ready' && !safeMediaUrl(method.url)) errors.push(`${scene.id}/${method.id}: ready 媒体 URL 无效`);
       if (method.status !== 'ready' && (method.url != null || method.poster != null)) errors.push(`${scene.id}/${method.id}: 未验收媒体必须没有 URL 或海报`);
@@ -97,25 +102,39 @@ export function publicationReadiness(manifest, { allowPartial = false } = {}) {
   let readyDisplayCount = 0;
   for (const scene of manifest.scenes) {
     const binding = { experiment_id: manifest.experiment_id, scene_id: scene.id };
+    const newBinding = { experiment_id: manifest.extension.experiment_id, scene_id: scene.id };
     if (!partial || scene.native_audit?.status === 'ready') {
       errors.push(...videoErrors(scene.native_audit, `${scene.id}/Native 审计`, [832, 480], scene.prompt_sha256, { ...binding, method_id: 'native_base' }));
       if (scene.native_audit?.validation?.checkpoint_sha256) checkpoints.add(scene.native_audit.validation.checkpoint_sha256);
+    }
+    if (!partial || scene.new_native_audit?.status === 'ready') {
+      errors.push(...videoErrors(scene.new_native_audit, `${scene.id}/新增 Native 审计`, [832, 480], scene.prompt_sha256, { ...newBinding, method_id: 'native_base' }));
+      if (scene.new_native_audit?.validation?.checkpoint_sha256) checkpoints.add(scene.new_native_audit.validation.checkpoint_sha256);
     }
     for (const method of scene.methods) {
       if (method.status === 'ready') readyDisplayCount += 1;
       if (partial && method.status !== 'ready') continue;
       const label = `${scene.id}/${method.id}`;
-      errors.push(...videoErrors(method, label, [1664, 960], scene.prompt_sha256, { ...binding, method_id: method.id }));
+      const isNew = NEW_METHOD_IDS.includes(method.id);
+      errors.push(...videoErrors(method, label, [1664, 960], scene.prompt_sha256, { ...(isNew ? newBinding : binding), method_id: method.id }));
+      if (isNew && (method.provenance?.attention !== 'freeswim' || method.provenance?.ar_rope !== false)) errors.push(`${label}: 必须核验不含 AR-RoPE 的原始 FreeSwim 注意力`);
       if (method.validation?.checkpoint_sha256) checkpoints.add(method.validation.checkpoint_sha256);
-      if (method.id === 'freeswim_ar_progressive') {
+      if (method.id === 'freeswim_ar_progressive' || method.id === 'freeswim_progressive') {
         if (method.provenance?.kind !== 'progressive_hr_feedback') errors.push(`${label}: 必须标记 HR 反馈而非固定 Base`);
-      } else if (!isPlayable(scene.native_audit) || method.provenance?.kind !== 'shared_native_base' || method.provenance?.native_sha256 !== scene.native_audit?.sha256) errors.push(`${label}: 新共享 Base 必须已验收且来源一致`);
+      } else {
+        const audit = isNew ? scene.new_native_audit : scene.native_audit;
+        if (!isPlayable(audit) || method.provenance?.kind !== 'shared_native_base' || method.provenance?.native_sha256 !== audit?.sha256) errors.push(`${label}: 必须绑定对应实验中已验收的 Base，不能混用旧 Base`);
+      }
       if (method.url) allUrls.push(method.url);
       if (method.sha256) allHashes.push(method.sha256);
     }
     if (scene.native_audit?.status === 'ready') {
       if (scene.native_audit.url) allUrls.push(scene.native_audit.url);
       if (scene.native_audit.sha256) allHashes.push(scene.native_audit.sha256);
+    }
+    if (scene.new_native_audit?.status === 'ready') {
+      if (scene.new_native_audit.url) allUrls.push(scene.new_native_audit.url);
+      if (scene.new_native_audit.sha256) allHashes.push(scene.new_native_audit.sha256);
     }
   }
   if (new Set(allUrls).size !== allUrls.length) errors.push('媒体 URL 重复，不能复用同一片冒充不同方法或场景');
@@ -127,6 +146,8 @@ export function publicationReadiness(manifest, { allowPartial = false } = {}) {
   } else {
     if (manifest.pipeline?.status !== 'completed' || manifest.pipeline?.jobs_succeeded !== true || manifest.pipeline?.summary_verified !== true) errors.push('尚未绑定成功作业和 SUE 总结');
     if (!/^[a-f0-9]{64}$/.test(manifest.pipeline?.summary_sha256 ?? '')) errors.push('SUE 总结未绑定本轮验证记录');
+    const fresh=manifest.extension.pipeline;
+    if (fresh?.experiment_id !== manifest.extension.experiment_id || fresh?.status !== 'completed' || fresh?.execution_succeeded !== true || fresh?.summary_verified !== true || !/^[a-f0-9]{64}$/.test(fresh?.summary_sha256 ?? '')) errors.push('新增直接 GPU 实验尚未完成生成及来源总结核验');
   }
   return { ready: errors.length === 0, errors };
 }

@@ -1,0 +1,52 @@
+{
+  "experiment_id": "autodl_krea_five_scene_freeswim_20261102",
+  "scene_id": "city",
+  "verified_utc": "2026-11-03T01:09:34.140Z",
+  "original_mp4_bytes_preserved": true,
+  "new_base_distinct_from_old_ar_experiment": true,
+  "online_browser_verified": false,
+  "artifacts": [
+    {
+      "experiment_id": "autodl_krea_five_scene_freeswim_20261102",
+      "scene_id": "city",
+      "method_id": "native_base",
+      "width": 832,
+      "height": 480,
+      "frames": 480,
+      "fps": 16,
+      "duration_seconds": 30,
+      "sha256": "42d27c96b3701d94187ce80c2eb1ca63b05d1572dc6aa15d929aac158f36c121",
+      "full_decode_passed": true,
+      "config_sha256": "8305f6fb1d69447d7deedc6fa444627350225ff104a66be0e70a4986ba8a7d88",
+      "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+      "source_freeze_sha256": "1e3d22db6127b213cbda4738e4a7863d9ed40058a41cd1265c28f1f3f31b8f0d",
+      "bytes": 30008068,
+      "prompt_sha256": "0046af33f3a72c8fe0a22a173a2bbe3422b89340c3e7e8ee6df9c89a265e481b",
+      "local_browser_verified": false,
+      "public_http_head": 200,
+      "public_http_range": 206,
+      "public_sha256_verified": true
+    },
+    {
+      "experiment_id": "autodl_krea_five_scene_freeswim_20261102",
+      "scene_id": "city",
+      "method_id": "freeswim_base",
+      "width": 1664,
+      "height": 960,
+      "frames": 480,
+      "fps": 16,
+      "duration_seconds": 30,
+      "sha256": "0e336da454ddc0110684626625be551bffa4cf9f8a32fc9947dd6edc7a50ed76",
+      "full_decode_passed": true,
+      "config_sha256": "115a8cc579d3cec0a29b1435861bcd325da4c7dac640ef333f627e86ab0b0957",
+      "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+      "source_freeze_sha256": "1e3d22db6127b213cbda4738e4a7863d9ed40058a41cd1265c28f1f3f31b8f0d",
+      "bytes": 60716453,
+      "prompt_sha256": "0046af33f3a72c8fe0a22a173a2bbe3422b89340c3e7e8ee6df9c89a265e481b",
+      "local_browser_verified": true,
+      "public_http_head": 200,
+      "public_http_range": 206,
+      "public_sha256_verified": true
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "experiment_id": "gpuhome_krea_halo_eight_15s_20261103",
+  "scene_id": "horse",
+  "method_id": "halo_g1_lf_decay",
+  "sha256": "4afb5bcb05b781b6f578052ff7b80334beb986601ae98390aac805913a5d9291",
+  "bytes": 18902601,
+  "validation": {
+    "full_decode": true,
+    "local_sha256_verified": true,
+    "width": 1664,
+    "height": 960,
+    "frames": 240,
+    "fps": 16,
+    "duration_seconds": 15,
+    "local_browser": {
+      "passed": true,
+      "playback_advanced": true,
+      "seek_completed": true,
+      "replay_advanced": true,
+      "zero_media_errors": true
+    }
+  },
+  "provenance": {
+    "experiment_id": "gpuhome_krea_halo_eight_15s_20261103",
+    "scene_id": "horse",
+    "method_id": "halo_g1_lf_decay",
+    "prompt_sha256": "0bb4e3a1b51d109f7786872ca32982fe6d61f60b30eac63020c8124a79f5cf14",
+    "config_sha256": "457eac01f58159a14e2ded647488db32c608a605e1279efb29f9024d4c6dd564",
+    "source_manifest_sha256": "af921c10d4f80dd1e83a0a1b4f03abdf8c00962a3ce7350d24ff38f231607457",
+    "authorization_sha256": "694d8c27ad3bc5a407eca970cf26eaaa70d12fee739f573aa9360b761db4d982",
+    "request_sha256": "b4f6bb91d6c97b200e018486a799bbcb9a857c83376438e81d3713ee7fd8b508",
+    "assets_manifest_sha256": "15e51bdd8908eca4fedba7bb7a5bdce90d874431208d924797de74a7c8f82c56",
+    "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+    "native_sha256": "06eb5c1d373feb55e4f55d784d590fe6cc62ef33991d4f4001b1a48ceff87740",
+    "base_manifest_sha256": "2cdd7bebd9e29b88b2f8e51c73355c1212ce9a804866bdaec41b8926294cdb5a",
+    "base_source_verified": true,
+    "pathway": "base_rgb_resize_vae_renoise_hr_suffix3",
+    "method_contract_verified": true,
+    "method_contract": {
+      "global_branch": "g1",
+      "ca_lambda": 0,
+      "output_lowpass_weights": [
+        0.833,
+        0.625,
+        0
+      ]
+    }
+  },
+  "evidence": {
+    "local_validation_summary_sha256": "f32bd7cc85ce4b53cb1b3ff473b2876ccb1255df26fadccdc80bb0712f8eea0b",
+    "local_candidate_report_sha256": "dd2c02d9538ee781887b21bb0806baeabd810598831e58b253bebf19248b3908",
+    "local_browser": {
+      "summary_sha256": "3469c7511ffc2a6870195f46e88a5b61f6f58fed94106802976f51d99150b931",
+      "observations_sha256": "0bde94267ca02080c5915d099c32fe636d41a2957d8f9676fdfe70039ef789df",
+      "viewer_sha256": "e048d7b6958b73b4ca87bebf79fbd0cc2027c8a1e8b37769264dec55b2cce2e9",
+      "candidate_manifest_sha256": "1274b2dddc5d8ce71ce68f45a46d18ec04be5099a1eb537011dbcb24410eca50"
+    }
+  }
+}

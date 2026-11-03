@@ -1,0 +1,911 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Krea Halo eight methods 15 seconds public manifest",
+  "description": "Cross-record Base provenance, exact method contract, current prompt hashes and release gates are additionally checked by core.mjs/check-ready.mjs. Pending is not publish-ready.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "title",
+    "expected",
+    "publication",
+    "science",
+    "pipeline",
+    "scenes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "experiment_id": {
+      "const": "gpuhome_krea_halo_eight_15s_20261103"
+    },
+    "title": {
+      "type": "string"
+    },
+    "expected": {
+      "const": {
+        "display": 40,
+        "native": 5
+      }
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "draft_only",
+        "mode",
+        "path"
+      ],
+      "properties": {
+        "draft_only": {
+          "type": "boolean"
+        },
+        "local_review_only": {
+          "type": "boolean",
+          "description": "True only for a private loopback partial-review candidate; always rejected by the full publication gate."
+        },
+        "mode": {
+          "enum": [
+            "full",
+            "partial"
+          ]
+        },
+        "path": {
+          "const": "halo-eight-15s-20261103/"
+        },
+        "updated_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "partial_summary": {
+          "$ref": "#/$defs/report"
+        },
+        "whole_experiment_complete": {
+          "const": false
+        },
+        "shutdown_allowed": {
+          "const": false
+        },
+        "online_verified": {
+          "const": false
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "partial"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "local_review_only",
+              "updated_utc",
+              "partial_summary",
+              "whole_experiment_complete",
+              "shutdown_allowed"
+            ],
+            "properties": {
+              "draft_only": {
+                "const": false
+              },
+              "local_review_only": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "science": {
+      "const": {
+        "model": "official Krea14B",
+        "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+        "seed": 12,
+        "native_wh": [
+          832,
+          480
+        ],
+        "display_wh": [
+          1664,
+          960
+        ],
+        "frames": 240,
+        "fps": 16,
+        "duration_seconds": 15,
+        "blocks": 21,
+        "block_latents": 3,
+        "history_latents": 3,
+        "native_model_calls": [
+          1000,
+          937.5,
+          833.3333333333,
+          625,
+          0
+        ],
+        "hr_model_calls": [
+          833.3333333333,
+          625,
+          0
+        ],
+        "clean_history_refresh": true,
+        "shared_base": "new_native_per_scene",
+        "pathway": "base_rgb_resize_vae_renoise_hr_suffix3",
+        "local_attention": "halo",
+        "halo_query_tile": [
+          10,
+          13
+        ],
+        "halo_kv_window": [
+          30,
+          52
+        ],
+        "lowpass": "orthonormal_spatial_dct_ii_binary_mask",
+        "lowpass_fraction": 0.25,
+        "beta_base": 1,
+        "parameters_confirmed": true,
+        "cross_step_feature_cache": false,
+        "global_g2": "hr_q_spatial_2x2_mean_hidden_then_kv_projection_knorm_cell_center_rope_no_temporal_pool"
+      }
+    },
+    "pipeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "weights_sha_verified",
+        "cpu_tests_passed",
+        "native_parity_passed",
+        "full_resolution_dryrun_passed",
+        "execution_succeeded",
+        "summary_verified",
+        "source_manifest_sha256",
+        "summary_url",
+        "summary_sha256"
+      ],
+      "properties": {
+        "weights_sha_verified": {
+          "type": "boolean"
+        },
+        "cpu_tests_passed": {
+          "type": "boolean"
+        },
+        "native_parity_passed": {
+          "type": "boolean"
+        },
+        "full_resolution_dryrun_passed": {
+          "type": "boolean"
+        },
+        "execution_succeeded": {
+          "type": "boolean"
+        },
+        "summary_verified": {
+          "type": "boolean"
+        },
+        "source_manifest_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary_url": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "$ref": "#/$defs/scene"
+      }
+    }
+  },
+  "$defs": {
+    "browser": {
+      "type": "object",
+      "required": [
+        "passed",
+        "playback_advanced",
+        "seek_completed",
+        "replay_advanced",
+        "zero_media_errors"
+      ],
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "playback_advanced": {
+          "type": "boolean"
+        },
+        "seek_completed": {
+          "type": "boolean"
+        },
+        "replay_advanced": {
+          "type": "boolean"
+        },
+        "zero_media_errors": {
+          "type": "boolean"
+        }
+      }
+    },
+    "method_contract": {
+      "type": "object",
+      "required": [
+        "global_branch",
+        "ca_lambda",
+        "output_lowpass_weights"
+      ],
+      "properties": {
+        "global_branch": {
+          "enum": [
+            null,
+            "g0",
+            "g1",
+            "g2"
+          ]
+        },
+        "ca_lambda": {
+          "enum": [
+            null,
+            0,
+            1
+          ]
+        },
+        "output_lowpass_weights": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "number"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "full_decode",
+        "local_sha256_verified",
+        "width",
+        "height",
+        "frames",
+        "fps",
+        "duration_seconds"
+      ],
+      "properties": {
+        "full_decode": {
+          "type": "boolean"
+        },
+        "local_sha256_verified": {
+          "type": "boolean"
+        },
+        "width": {
+          "enum": [
+            832,
+            1664
+          ]
+        },
+        "height": {
+          "enum": [
+            480,
+            960
+          ]
+        },
+        "frames": {
+          "const": 240
+        },
+        "fps": {
+          "const": 16
+        },
+        "duration_seconds": {
+          "const": 15
+        },
+        "local_browser": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/browser"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "experiment_id",
+        "scene_id",
+        "method_id",
+        "prompt_sha256",
+        "config_sha256",
+        "source_manifest_sha256",
+        "checkpoint_sha256",
+        "native_sha256",
+        "base_manifest_sha256",
+        "base_source_verified",
+        "pathway",
+        "method_contract_verified"
+      ],
+      "properties": {
+        "experiment_id": {
+          "const": "gpuhome_krea_halo_eight_15s_20261103"
+        },
+        "scene_id": {
+          "enum": [
+            "pottery",
+            "horse",
+            "city",
+            "stream",
+            "macro"
+          ]
+        },
+        "method_id": {
+          "enum": [
+            "native",
+            "bilinear",
+            "halo_g0_ca",
+            "halo_g1_ca",
+            "halo_g2_ca",
+            "halo_g2_lf_fixed",
+            "halo_g2_lf_decay",
+            "halo_g1_lf_fixed",
+            "halo_g1_lf_decay"
+          ]
+        },
+        "prompt_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "config_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "source_manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "checkpoint_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "native_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "base_manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "base_source_verified": {
+          "type": "boolean"
+        },
+        "pathway": {
+          "enum": [
+            "native",
+            "bilinear",
+            "base_rgb_resize_vae_renoise_hr_suffix3"
+          ]
+        },
+        "method_contract_verified": {
+          "type": "boolean"
+        },
+        "method_contract": {
+          "$ref": "#/$defs/method_contract"
+        }
+      }
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "url",
+        "sha256"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "online": {
+      "type": "object",
+      "required": [
+        "head_ok",
+        "range_ok",
+        "full_sha256_verified",
+        "sha256",
+        "report_url",
+        "report_sha256"
+      ],
+      "properties": {
+        "head_ok": {
+          "type": "boolean"
+        },
+        "range_ok": {
+          "type": "boolean"
+        },
+        "full_sha256_verified": {
+          "type": "boolean"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "report_url": {
+          "type": "string",
+          "minLength": 1
+        },
+        "report_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "browser": {
+          "$ref": "#/$defs/browser"
+        }
+      }
+    },
+    "media": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "url",
+        "poster",
+        "sha256",
+        "bytes",
+        "report",
+        "validation",
+        "provenance",
+        "online"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "ready",
+            "failed"
+          ]
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "poster": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bytes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "report": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/report"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "validation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/validation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/provenance"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "online": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/online"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "pending",
+                  "failed"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "url": {
+                "type": "null"
+              },
+              "poster": {
+                "type": "null"
+              },
+              "sha256": {
+                "type": "null"
+              },
+              "bytes": {
+                "type": "null"
+              },
+              "report": {
+                "type": "null"
+              },
+              "validation": {
+                "type": "null"
+              },
+              "provenance": {
+                "type": "null"
+              },
+              "online": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ready"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "report": {
+                "$ref": "#/$defs/report"
+              },
+              "validation": {
+                "$ref": "#/$defs/validation"
+              },
+              "provenance": {
+                "$ref": "#/$defs/provenance"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "method": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/media"
+        },
+        {
+          "type": "object",
+          "required": [
+            "title",
+            "subtitle",
+            "global_branch",
+            "ca_lambda",
+            "output_lowpass_weights"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "const": "bilinear"
+                },
+                "global_branch": {
+                  "const": null
+                },
+                "ca_lambda": {
+                  "const": null
+                },
+                "output_lowpass_weights": {
+                  "const": null
+                }
+              }
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "halo_g0_ca"
+                },
+                "global_branch": {
+                  "const": "g0"
+                },
+                "ca_lambda": {
+                  "const": 1
+                },
+                "output_lowpass_weights": {
+                  "const": null
+                }
+              }
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "halo_g1_ca"
+                },
+                "global_branch": {
+                  "const": "g1"
+                },
+                "ca_lambda": {
+                  "const": 1
+                },
+                "output_lowpass_weights": {
+                  "const": null
+                }
+              }
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "halo_g2_ca"
+                },
+                "global_branch": {
+                  "const": "g2"
+                },
+                "ca_lambda": {
+                  "const": 1
+                },
+                "output_lowpass_weights": {
+                  "const": null
+                }
+              }
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "halo_g2_lf_fixed"
+                },
+                "global_branch": {
+                  "const": "g2"
+                },
+                "ca_lambda": {
+                  "const": 0
+                },
+                "output_lowpass_weights": {
+                  "const": [
+                    0.5,
+                    0.5,
+                    0.5
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "halo_g2_lf_decay"
+                },
+                "global_branch": {
+                  "const": "g2"
+                },
+                "ca_lambda": {
+                  "const": 0
+                },
+                "output_lowpass_weights": {
+                  "const": [
+                    0.833,
+                    0.625,
+                    0
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "halo_g1_lf_fixed"
+                },
+                "global_branch": {
+                  "const": "g1"
+                },
+                "ca_lambda": {
+                  "const": 0
+                },
+                "output_lowpass_weights": {
+                  "const": [
+                    0.5,
+                    0.5,
+                    0.5
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "halo_g1_lf_decay"
+                },
+                "global_branch": {
+                  "const": "g1"
+                },
+                "ca_lambda": {
+                  "const": 0
+                },
+                "output_lowpass_weights": {
+                  "const": [
+                    0.833,
+                    0.625,
+                    0
+                  ]
+                }
+              }
+            }
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "subtitle": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ]
+    },
+    "scene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "observation",
+        "prompt",
+        "prompt_sha256",
+        "native_audit",
+        "methods"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "pottery",
+            "horse",
+            "city",
+            "stream",
+            "macro"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "observation": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string",
+          "pattern": "^A 15-second "
+        },
+        "prompt_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "native_audit": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/media"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "native"
+                }
+              }
+            }
+          ]
+        },
+        "methods": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/method"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Krea14B 五场景八方法15秒对比：共享新Native Base、Halo全局分支与低频融合。">
+  <title>Krea14B · 五场景八方法 · 15秒对比</title>
+  <link rel="stylesheet" href="./viewer.css">
+  <script type="module" src="./viewer.mjs"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">K</span><span>KREA14B <span class="brand-caption"> / HALO COMPARISON</span></span></div>
+    <span class="status-badge" id="page-status">读取实验清单…</span>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">FIVE SCENES / EIGHT METHODS</p><h1>同一段视频，八种细节生成方式</h1><p class="intro-copy">共享本轮新 Native Base，比较 Halo 的全局分支、CA 替换与低频融合。</p></div>
+      <div class="specifications"><span>1664 × 960 <b>·</b> 240 帧 <b>·</b> 16 fps <b>·</b> 15 s</span><span>Native 832 × 480 <b>·</b> seed 12 <b>·</b> 21 块 × 3 latent</span></div>
+    </section>
+    <p class="notice" id="preparation-notice">正在核对实验清单与已验收原片。未完成的视频会保留待完成状态。</p>
+    <section id="partial-publication-summary" class="publication-progress" aria-label="部分结果进度" hidden>
+      <div><span>可播放展示</span><strong id="display-ready-count">—</strong></div>
+      <div><span>已验收 Native</span><strong id="native-ready-count">—</strong></div>
+      <div><span>尚未接入展示</span><strong id="pending-display-count">—</strong></div>
+      <p>更新于 <time id="publication-updated"></time><br><a id="partial-report-link">查看本次部分结果验收汇总 ↗</a></p>
+    </section>
+    <nav class="scene-toolbar" aria-label="选择场景"><div id="scene-tabs"></div><label class="all-toggle"><input id="show-all" type="checkbox">同时展开五组</label></nav>
+    <div class="order-help"><span>左右滚动查看八路。拖动卡片标题或用 ← → 调整顺序，顺序会记住；每路独立缓冲。</span><button type="button" id="reset-order">恢复方法顺序</button></div>
+    <div id="scene-groups"></div>
+    <section class="comparison-note" aria-labelledby="comparison-heading">
+      <h2 id="comparison-heading">这八组如何比较</h2>
+      <div>
+        <p><strong>相同起点</strong><br>每个场景先完整生成并验收一份新的 Native Base。Bilinear 直接双线性插值；其余七组均从这份 Base 的 RGB 插值、VAE 编码并加噪，再做三次高清模型调用。这里没有低清2步→高清3步路径，也不借用历史30秒成片。</p>
+        <p><strong>三种全局分支</strong><br>G0 使用原版完整全局分支；G1 使用完整全局 AR-RoPE；G2 保留高清 Q，将自注意力输入 hidden 按空间2×2均值池化后投影为 K/V，再做 K 归一化及单元中心 RoPE，不沿时间池化。七组的局部分支均使用 Halo。</p>
+        <p><strong>两种融合位置</strong><br>CA 组用全局分支的文本交叉注意力结果替换局部分支结果。低频组保留各自文本 CA，把当前全局干净预测的低频残差融合到局部 x0，再交给调度器；修正后的最终 x0 写入历史。低频参考不是固定 Base。</p>
+      </div>
+      <div class="table-scroll" tabindex="0" aria-label="八组方法定义，可横向滚动">
+        <table><thead><tr><th>方法</th><th>全局分支</th><th>全局→局部 CA</th><th>三次高清调用的低频权重</th></tr></thead><tbody>
+          <tr><th>01 · Bilinear</th><td>无</td><td>无</td><td>无去噪</td></tr>
+          <tr><th>02 · Halo G0 + CA</th><td>G0 原版完整全局</td><td>替换（λ = 1）</td><td>无</td></tr>
+          <tr><th>03 · Halo G1 + CA</th><td>G1 完整全局 AR-RoPE</td><td>替换（λ = 1）</td><td>无</td></tr>
+          <tr><th>04 · Halo G2 + CA</th><td>G2 高清 Q / 粗 KV</td><td>替换（λ = 1）</td><td>无</td></tr>
+          <tr><th>05 · Halo G2 + 低频融合</th><td>G2 高清 Q / 粗 KV</td><td>保留各自 CA（λ = 0）</td><td>0.5 / 0.5 / 0.5</td></tr>
+          <tr><th>06 · Halo G2 + 低频衰减</th><td>G2 高清 Q / 粗 KV</td><td>保留各自 CA（λ = 0）</td><td>0.833 / 0.625 / 0</td></tr>
+          <tr><th>07 · Halo G1 + 低频融合</th><td>G1 完整全局 AR-RoPE</td><td>保留各自 CA（λ = 0）</td><td>0.5 / 0.5 / 0.5</td></tr>
+          <tr><th>08 · Halo G1 + 低频衰减</th><td>G1 完整全局 AR-RoPE</td><td>保留各自 CA（λ = 0）</td><td>0.833 / 0.625 / 0</td></tr>
+        </tbody></table>
+      </div>
+      <p class="protocol-note">已确认设置：Halo 查询块 10×13、KV 窗口 30×52；正交空间 DCT-II 每轴保留最低25%频率，β = 1。Native 模型调用 [1000, 937.5, 833.3333333333, 625, 0]，高清后缀 [833.3333333333, 625, 0]，另保留原有 clean 历史刷新；不做跨步特征缓存。组内跳转是手动对齐，不锁步等待最慢一路。</p>
+    </section>
+    <aside class="history-links" aria-label="历史实验"><a href="../five-scenes-20261026/">查看历史五场景30秒实验 ↗</a><a href="../">查看历史总览 ↗</a></aside>
+  </main>
+  <footer><span>Krea14B · Halo eight-way · 15 seconds</span><span id="footer-status">待生成 / 待验收</span></footer>
+  <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+</body>
+</html>

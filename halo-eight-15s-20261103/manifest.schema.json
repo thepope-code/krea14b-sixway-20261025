@@ -47,59 +47,12 @@
           "description": "True only for a private loopback partial-review candidate; always rejected by the full publication gate."
         },
         "mode": {
-          "enum": [
-            "full",
-            "partial"
-          ]
+          "const": "full"
         },
         "path": {
           "const": "halo-eight-15s-20261103/"
-        },
-        "updated_utc": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "partial_summary": {
-          "$ref": "#/$defs/report"
-        },
-        "whole_experiment_complete": {
-          "const": false
-        },
-        "shutdown_allowed": {
-          "const": false
-        },
-        "online_verified": {
-          "const": false
         }
-      },
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "mode": {
-                "const": "partial"
-              }
-            }
-          },
-          "then": {
-            "required": [
-              "local_review_only",
-              "updated_utc",
-              "partial_summary",
-              "whole_experiment_complete",
-              "shutdown_allowed"
-            ],
-            "properties": {
-              "draft_only": {
-                "const": false
-              },
-              "local_review_only": {
-                "const": false
-              }
-            }
-          }
-        }
-      ]
+      }
     },
     "science": {
       "const": {

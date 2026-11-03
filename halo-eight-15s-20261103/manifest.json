@@ -9,15 +9,8 @@
   "publication": {
     "draft_only": false,
     "local_review_only": false,
-    "mode": "partial",
-    "path": "halo-eight-15s-20261103/",
-    "updated_utc": "2026-11-03T13:07:20.470Z",
-    "partial_summary": {
-      "url": "./reports/partial-summary.json",
-      "sha256": "c572fc8839b0c754b64234434a99926833b84606b67f29669c8f9f2656fce156"
-    },
-    "whole_experiment_complete": false,
-    "shutdown_allowed": false
+    "mode": "full",
+    "path": "halo-eight-15s-20261103/"
   },
   "science": {
     "model": "official Krea14B",
@@ -73,11 +66,11 @@
     "cpu_tests_passed": true,
     "native_parity_passed": true,
     "full_resolution_dryrun_passed": true,
-    "execution_succeeded": false,
-    "summary_verified": false,
+    "execution_succeeded": true,
+    "summary_verified": true,
     "source_manifest_sha256": "af921c10d4f80dd1e83a0a1b4f03abdf8c00962a3ce7350d24ff38f231607457",
-    "summary_url": null,
-    "summary_sha256": null
+    "summary_url": "./reports/full-summary.json",
+    "summary_sha256": "1b4b28c0ae81506db81040aa1a5e99e7d903a60818a5ccc42603cd5a0aa06e99"
   },
   "scenes": [
     {
@@ -2296,14 +2289,53 @@
         },
         {
           "id": "halo_g0_ca",
-          "status": "pending",
-          "url": null,
+          "status": "ready",
+          "url": "https://github.com/thepope-code/krea14b-sixway-20261025/releases/download/krea-halo-eight-15s-20261103/macro_halo_g0_ca.mp4",
           "poster": null,
-          "sha256": null,
-          "bytes": null,
-          "report": null,
-          "validation": null,
-          "provenance": null,
+          "sha256": "6fb52bb3957950b52b7f7e746206d87b7bbf5d0b21365e018b08364c0fc9d606",
+          "bytes": 11704702,
+          "report": {
+            "url": "./reports/macro-halo_g0_ca.json",
+            "sha256": "1a284cc809b73570dbb7851e8b07b19a0689f20fb0f9ee05b1f29391f30364eb"
+          },
+          "validation": {
+            "full_decode": true,
+            "local_sha256_verified": true,
+            "width": 1664,
+            "height": 960,
+            "frames": 240,
+            "fps": 16,
+            "duration_seconds": 15,
+            "local_browser": {
+              "passed": true,
+              "playback_advanced": true,
+              "seek_completed": true,
+              "replay_advanced": true,
+              "zero_media_errors": true
+            }
+          },
+          "provenance": {
+            "experiment_id": "gpuhome_krea_halo_eight_15s_20261103",
+            "scene_id": "macro",
+            "method_id": "halo_g0_ca",
+            "prompt_sha256": "7878b241013ce89c2863255c36732b1cc2bb9de8479f44633a32f7f767b9df2e",
+            "config_sha256": "8d95a887759e72f4343686a2ee29d7878bb29c8637333069e85a5ab4f0db3eee",
+            "source_manifest_sha256": "af921c10d4f80dd1e83a0a1b4f03abdf8c00962a3ce7350d24ff38f231607457",
+            "authorization_sha256": "d4eaa6f36e037f0805a66171cb1c71591661e55d321662ba96e27e87a9a095fa",
+            "request_sha256": "b4f6bb91d6c97b200e018486a799bbcb9a857c83376438e81d3713ee7fd8b508",
+            "assets_manifest_sha256": "15e51bdd8908eca4fedba7bb7a5bdce90d874431208d924797de74a7c8f82c56",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "native_sha256": "edc032d1e3b5804d25a7e78073436e8674edebd0adf28a1de7dccd108c4cbb0e",
+            "base_manifest_sha256": "39747360746ba3ec7b54cc377365bca996472f7eb59b4e983cab76ce805a9b36",
+            "base_source_verified": true,
+            "pathway": "base_rgb_resize_vae_renoise_hr_suffix3",
+            "method_contract_verified": true,
+            "method_contract": {
+              "global_branch": "g0",
+              "ca_lambda": 1,
+              "output_lowpass_weights": null
+            }
+          },
           "online": null,
           "title": "Halo G0 + CA",
           "subtitle": "原版完整全局分支 · CA 替换",
@@ -2313,14 +2345,53 @@
         },
         {
           "id": "halo_g1_ca",
-          "status": "pending",
-          "url": null,
+          "status": "ready",
+          "url": "https://github.com/thepope-code/krea14b-sixway-20261025/releases/download/krea-halo-eight-15s-20261103/macro_halo_g1_ca.mp4",
           "poster": null,
-          "sha256": null,
-          "bytes": null,
-          "report": null,
-          "validation": null,
-          "provenance": null,
+          "sha256": "95352af47786c6b5d2c7cd80df72c6704509441416e5421d2ceb7d1b9d855f1a",
+          "bytes": 11690099,
+          "report": {
+            "url": "./reports/macro-halo_g1_ca.json",
+            "sha256": "316f50078e2f6f9122316ea4f18bd43a391151d8dd15ab8dd9a1b0635c181e48"
+          },
+          "validation": {
+            "full_decode": true,
+            "local_sha256_verified": true,
+            "width": 1664,
+            "height": 960,
+            "frames": 240,
+            "fps": 16,
+            "duration_seconds": 15,
+            "local_browser": {
+              "passed": true,
+              "playback_advanced": true,
+              "seek_completed": true,
+              "replay_advanced": true,
+              "zero_media_errors": true
+            }
+          },
+          "provenance": {
+            "experiment_id": "gpuhome_krea_halo_eight_15s_20261103",
+            "scene_id": "macro",
+            "method_id": "halo_g1_ca",
+            "prompt_sha256": "7878b241013ce89c2863255c36732b1cc2bb9de8479f44633a32f7f767b9df2e",
+            "config_sha256": "43229888c68652ebe0c1664e78f4a2c1ec65f39f5a8a07c7e95ed199fd2654e3",
+            "source_manifest_sha256": "af921c10d4f80dd1e83a0a1b4f03abdf8c00962a3ce7350d24ff38f231607457",
+            "authorization_sha256": "d4eaa6f36e037f0805a66171cb1c71591661e55d321662ba96e27e87a9a095fa",
+            "request_sha256": "b4f6bb91d6c97b200e018486a799bbcb9a857c83376438e81d3713ee7fd8b508",
+            "assets_manifest_sha256": "15e51bdd8908eca4fedba7bb7a5bdce90d874431208d924797de74a7c8f82c56",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "native_sha256": "edc032d1e3b5804d25a7e78073436e8674edebd0adf28a1de7dccd108c4cbb0e",
+            "base_manifest_sha256": "39747360746ba3ec7b54cc377365bca996472f7eb59b4e983cab76ce805a9b36",
+            "base_source_verified": true,
+            "pathway": "base_rgb_resize_vae_renoise_hr_suffix3",
+            "method_contract_verified": true,
+            "method_contract": {
+              "global_branch": "g1",
+              "ca_lambda": 1,
+              "output_lowpass_weights": null
+            }
+          },
           "online": null,
           "title": "Halo G1 + CA",
           "subtitle": "完整全局 AR-RoPE · CA 替换",
@@ -2386,14 +2457,57 @@
         },
         {
           "id": "halo_g2_lf_fixed",
-          "status": "pending",
-          "url": null,
+          "status": "ready",
+          "url": "https://github.com/thepope-code/krea14b-sixway-20261025/releases/download/krea-halo-eight-15s-20261103/macro_halo_g2_lf_fixed.mp4",
           "poster": null,
-          "sha256": null,
-          "bytes": null,
-          "report": null,
-          "validation": null,
-          "provenance": null,
+          "sha256": "a8729a574587d76c83ee90aebc90a3404e7ceb2e3a2f4e18147113848c77e323",
+          "bytes": 11304389,
+          "report": {
+            "url": "./reports/macro-halo_g2_lf_fixed.json",
+            "sha256": "51afe1a9e0574c4f9e76c697c84c642025e52c661f7e6b2f84c15c34cc52632b"
+          },
+          "validation": {
+            "full_decode": true,
+            "local_sha256_verified": true,
+            "width": 1664,
+            "height": 960,
+            "frames": 240,
+            "fps": 16,
+            "duration_seconds": 15,
+            "local_browser": {
+              "passed": true,
+              "playback_advanced": true,
+              "seek_completed": true,
+              "replay_advanced": true,
+              "zero_media_errors": true
+            }
+          },
+          "provenance": {
+            "experiment_id": "gpuhome_krea_halo_eight_15s_20261103",
+            "scene_id": "macro",
+            "method_id": "halo_g2_lf_fixed",
+            "prompt_sha256": "7878b241013ce89c2863255c36732b1cc2bb9de8479f44633a32f7f767b9df2e",
+            "config_sha256": "b2e21744881e56eb8ddc6b4d92c3d15c08f0bf51bbe97f5c101852d96957863f",
+            "source_manifest_sha256": "af921c10d4f80dd1e83a0a1b4f03abdf8c00962a3ce7350d24ff38f231607457",
+            "authorization_sha256": "d4eaa6f36e037f0805a66171cb1c71591661e55d321662ba96e27e87a9a095fa",
+            "request_sha256": "b4f6bb91d6c97b200e018486a799bbcb9a857c83376438e81d3713ee7fd8b508",
+            "assets_manifest_sha256": "15e51bdd8908eca4fedba7bb7a5bdce90d874431208d924797de74a7c8f82c56",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "native_sha256": "edc032d1e3b5804d25a7e78073436e8674edebd0adf28a1de7dccd108c4cbb0e",
+            "base_manifest_sha256": "39747360746ba3ec7b54cc377365bca996472f7eb59b4e983cab76ce805a9b36",
+            "base_source_verified": true,
+            "pathway": "base_rgb_resize_vae_renoise_hr_suffix3",
+            "method_contract_verified": true,
+            "method_contract": {
+              "global_branch": "g2",
+              "ca_lambda": 0,
+              "output_lowpass_weights": [
+                0.5,
+                0.5,
+                0.5
+              ]
+            }
+          },
           "online": null,
           "title": "Halo G2 + 低频融合",
           "subtitle": "保留本地 CA · 权重 0.5 / 0.5 / 0.5",
@@ -2407,14 +2521,57 @@
         },
         {
           "id": "halo_g2_lf_decay",
-          "status": "pending",
-          "url": null,
+          "status": "ready",
+          "url": "https://github.com/thepope-code/krea14b-sixway-20261025/releases/download/krea-halo-eight-15s-20261103/macro_halo_g2_lf_decay.mp4",
           "poster": null,
-          "sha256": null,
-          "bytes": null,
-          "report": null,
-          "validation": null,
-          "provenance": null,
+          "sha256": "54998d2a99d8afbb13a9a6533725794f6137e5a7126516109ef18642bcd1f6e1",
+          "bytes": 11065655,
+          "report": {
+            "url": "./reports/macro-halo_g2_lf_decay.json",
+            "sha256": "10cb5011b9c6e1757e44c1e2c27d8dbccf2dc17145e482239019d5f51fcf348d"
+          },
+          "validation": {
+            "full_decode": true,
+            "local_sha256_verified": true,
+            "width": 1664,
+            "height": 960,
+            "frames": 240,
+            "fps": 16,
+            "duration_seconds": 15,
+            "local_browser": {
+              "passed": true,
+              "playback_advanced": true,
+              "seek_completed": true,
+              "replay_advanced": true,
+              "zero_media_errors": true
+            }
+          },
+          "provenance": {
+            "experiment_id": "gpuhome_krea_halo_eight_15s_20261103",
+            "scene_id": "macro",
+            "method_id": "halo_g2_lf_decay",
+            "prompt_sha256": "7878b241013ce89c2863255c36732b1cc2bb9de8479f44633a32f7f767b9df2e",
+            "config_sha256": "fe4c2560e4e968cd5d7561a2f4ae00694bfb9814541742863ac8cca9786f5771",
+            "source_manifest_sha256": "af921c10d4f80dd1e83a0a1b4f03abdf8c00962a3ce7350d24ff38f231607457",
+            "authorization_sha256": "d4eaa6f36e037f0805a66171cb1c71591661e55d321662ba96e27e87a9a095fa",
+            "request_sha256": "b4f6bb91d6c97b200e018486a799bbcb9a857c83376438e81d3713ee7fd8b508",
+            "assets_manifest_sha256": "15e51bdd8908eca4fedba7bb7a5bdce90d874431208d924797de74a7c8f82c56",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "native_sha256": "edc032d1e3b5804d25a7e78073436e8674edebd0adf28a1de7dccd108c4cbb0e",
+            "base_manifest_sha256": "39747360746ba3ec7b54cc377365bca996472f7eb59b4e983cab76ce805a9b36",
+            "base_source_verified": true,
+            "pathway": "base_rgb_resize_vae_renoise_hr_suffix3",
+            "method_contract_verified": true,
+            "method_contract": {
+              "global_branch": "g2",
+              "ca_lambda": 0,
+              "output_lowpass_weights": [
+                0.833,
+                0.625,
+                0
+              ]
+            }
+          },
           "online": null,
           "title": "Halo G2 + 低频衰减",
           "subtitle": "保留本地 CA · 权重 0.833 / 0.625 / 0",
@@ -2428,14 +2585,57 @@
         },
         {
           "id": "halo_g1_lf_fixed",
-          "status": "pending",
-          "url": null,
+          "status": "ready",
+          "url": "https://github.com/thepope-code/krea14b-sixway-20261025/releases/download/krea-halo-eight-15s-20261103/macro_halo_g1_lf_fixed.mp4",
           "poster": null,
-          "sha256": null,
-          "bytes": null,
-          "report": null,
-          "validation": null,
-          "provenance": null,
+          "sha256": "ae3f32a6b2ea4ad5c47be7fbd780e4ded5eb955786fc6e61aef53f0c1b2fa6ae",
+          "bytes": 11559745,
+          "report": {
+            "url": "./reports/macro-halo_g1_lf_fixed.json",
+            "sha256": "d3c47812aa436880b44aff5f72d143f95cd3445b9a3b8bdad037deb0c8ea24c0"
+          },
+          "validation": {
+            "full_decode": true,
+            "local_sha256_verified": true,
+            "width": 1664,
+            "height": 960,
+            "frames": 240,
+            "fps": 16,
+            "duration_seconds": 15,
+            "local_browser": {
+              "passed": true,
+              "playback_advanced": true,
+              "seek_completed": true,
+              "replay_advanced": true,
+              "zero_media_errors": true
+            }
+          },
+          "provenance": {
+            "experiment_id": "gpuhome_krea_halo_eight_15s_20261103",
+            "scene_id": "macro",
+            "method_id": "halo_g1_lf_fixed",
+            "prompt_sha256": "7878b241013ce89c2863255c36732b1cc2bb9de8479f44633a32f7f767b9df2e",
+            "config_sha256": "117b4ed5200563c11a7681d2433ce18fab4b769c91793a87acc3f8b8c6f782d9",
+            "source_manifest_sha256": "af921c10d4f80dd1e83a0a1b4f03abdf8c00962a3ce7350d24ff38f231607457",
+            "authorization_sha256": "d4eaa6f36e037f0805a66171cb1c71591661e55d321662ba96e27e87a9a095fa",
+            "request_sha256": "b4f6bb91d6c97b200e018486a799bbcb9a857c83376438e81d3713ee7fd8b508",
+            "assets_manifest_sha256": "15e51bdd8908eca4fedba7bb7a5bdce90d874431208d924797de74a7c8f82c56",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "native_sha256": "edc032d1e3b5804d25a7e78073436e8674edebd0adf28a1de7dccd108c4cbb0e",
+            "base_manifest_sha256": "39747360746ba3ec7b54cc377365bca996472f7eb59b4e983cab76ce805a9b36",
+            "base_source_verified": true,
+            "pathway": "base_rgb_resize_vae_renoise_hr_suffix3",
+            "method_contract_verified": true,
+            "method_contract": {
+              "global_branch": "g1",
+              "ca_lambda": 0,
+              "output_lowpass_weights": [
+                0.5,
+                0.5,
+                0.5
+              ]
+            }
+          },
           "online": null,
           "title": "Halo G1 + 低频融合",
           "subtitle": "保留本地 CA · 权重 0.5 / 0.5 / 0.5",
@@ -2449,14 +2649,57 @@
         },
         {
           "id": "halo_g1_lf_decay",
-          "status": "pending",
-          "url": null,
+          "status": "ready",
+          "url": "https://github.com/thepope-code/krea14b-sixway-20261025/releases/download/krea-halo-eight-15s-20261103/macro_halo_g1_lf_decay.mp4",
           "poster": null,
-          "sha256": null,
-          "bytes": null,
-          "report": null,
-          "validation": null,
-          "provenance": null,
+          "sha256": "c517132d3da33ca7b061576beb1ea2d11002aad4c05fd2ff79f4bbefff2d93ca",
+          "bytes": 11410388,
+          "report": {
+            "url": "./reports/macro-halo_g1_lf_decay.json",
+            "sha256": "943612383765b02ad26b3340589fa881926e02b358446b3efa0aea1bf55703bd"
+          },
+          "validation": {
+            "full_decode": true,
+            "local_sha256_verified": true,
+            "width": 1664,
+            "height": 960,
+            "frames": 240,
+            "fps": 16,
+            "duration_seconds": 15,
+            "local_browser": {
+              "passed": true,
+              "playback_advanced": true,
+              "seek_completed": true,
+              "replay_advanced": true,
+              "zero_media_errors": true
+            }
+          },
+          "provenance": {
+            "experiment_id": "gpuhome_krea_halo_eight_15s_20261103",
+            "scene_id": "macro",
+            "method_id": "halo_g1_lf_decay",
+            "prompt_sha256": "7878b241013ce89c2863255c36732b1cc2bb9de8479f44633a32f7f767b9df2e",
+            "config_sha256": "bfd5217137576bf3687454e22f4974afad7aa44f8d608c4642602628032b57b8",
+            "source_manifest_sha256": "af921c10d4f80dd1e83a0a1b4f03abdf8c00962a3ce7350d24ff38f231607457",
+            "authorization_sha256": "d4eaa6f36e037f0805a66171cb1c71591661e55d321662ba96e27e87a9a095fa",
+            "request_sha256": "b4f6bb91d6c97b200e018486a799bbcb9a857c83376438e81d3713ee7fd8b508",
+            "assets_manifest_sha256": "15e51bdd8908eca4fedba7bb7a5bdce90d874431208d924797de74a7c8f82c56",
+            "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+            "native_sha256": "edc032d1e3b5804d25a7e78073436e8674edebd0adf28a1de7dccd108c4cbb0e",
+            "base_manifest_sha256": "39747360746ba3ec7b54cc377365bca996472f7eb59b4e983cab76ce805a9b36",
+            "base_source_verified": true,
+            "pathway": "base_rgb_resize_vae_renoise_hr_suffix3",
+            "method_contract_verified": true,
+            "method_contract": {
+              "global_branch": "g1",
+              "ca_lambda": 0,
+              "output_lowpass_weights": [
+                0.833,
+                0.625,
+                0
+              ]
+            }
+          },
           "online": null,
           "title": "Halo G1 + 低频衰减",
           "subtitle": "保留本地 CA · 权重 0.833 / 0.625 / 0",

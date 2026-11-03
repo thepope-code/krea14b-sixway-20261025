@@ -1,0 +1,31 @@
+{
+  "experiment_id": "autodl_krea_five_scene_freeswim_20261102",
+  "scene_id": "stream",
+  "verified_utc": "2026-11-03T02:28:27.735Z",
+  "original_mp4_bytes_preserved": true,
+  "new_base_distinct_from_old_ar_experiment": true,
+  "online_browser_verified": false,
+  "artifacts": [
+    {
+      "experiment_id": "autodl_krea_five_scene_freeswim_20261102",
+      "scene_id": "stream",
+      "method_id": "native_base",
+      "width": 832,
+      "height": 480,
+      "frames": 480,
+      "fps": 16,
+      "duration_seconds": 30,
+      "sha256": "b93cde6c5e3aecc7904550de561e97c909b0caf1db4eed748c1aa9d0bf06d230",
+      "full_decode_passed": true,
+      "config_sha256": "fa3a453582716b85bfaf1f51245411c75ba72d62499cb2d90a4e83525abe2bb5",
+      "checkpoint_sha256": "792f6042a645e227f5d71851845dc4098a7338fec9ec55279f88ebbc3527eec7",
+      "source_freeze_sha256": "1e3d22db6127b213cbda4738e4a7863d9ed40058a41cd1265c28f1f3f31b8f0d",
+      "bytes": 33146315,
+      "prompt_sha256": "ae804b7e72a548d73906d581dcd0053237a38965aab5124ab2bc53c812b5a877",
+      "local_browser_verified": false,
+      "public_http_head": 200,
+      "public_http_range": 206,
+      "public_sha256_verified": true
+    }
+  ]
+}
